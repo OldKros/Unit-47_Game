@@ -5,9 +5,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    //
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float xPadding = 0.5f;
     [SerializeField] float yPadding = 0.5f;
+    [SerializeField] GameObject laserPrefab;
+    [SerializeField] float projectileSpeed = 10f;
+    [SerializeField] float laserFireSpeed = 0.2f; // in seconds
+
+    Coroutine laserFiringCoroutine;
     float xMin, xMax, yMin, yMax;
 
     // Start is called before the first frame update
@@ -20,6 +26,31 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
+        Fire();
+    }
+
+    private void Fire()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            laserFiringCoroutine = StartCoroutine(FireLaser());
+        }
+        if (Input.GetButtonUp("Fire1"))
+        {
+            StopCoroutine(laserFiringCoroutine);
+        }
+    }
+
+    IEnumerator FireLaser()
+    {
+        while (true)
+        {
+            GameObject laser = Instantiate(laserPrefab,
+                                            transform.position,
+                                            Quaternion.identity) as GameObject;
+            laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+            yield return new WaitForSeconds(laserFireSpeed);
+        }
     }
 
     private void SetUpMoveBoundaries()
