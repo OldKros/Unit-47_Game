@@ -6,6 +6,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 10f;
+    [SerializeField] float xPadding = 0.5f;
+    [SerializeField] float yPadding = 0.5f;
     float xMin, xMax, yMin, yMax;
 
     // Start is called before the first frame update
@@ -23,10 +25,10 @@ public class Player : MonoBehaviour
     private void SetUpMoveBoundaries()
     {
         Camera gameCamera = Camera.main;
-        xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
-        xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
-        yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y;
-        yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y;
+        xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + xPadding;
+        xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - xPadding;
+        yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + yPadding;
+        yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - yPadding;
     }
 
     private void Move()
