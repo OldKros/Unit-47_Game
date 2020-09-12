@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyPathing : MonoBehaviour
 {
-    [SerializeField] List<Transform> path;
+    [SerializeField] List<Transform> waypoints;
     [SerializeField] float moveSpeed = 2f;
 
     int waypointIndex = 0;
@@ -12,7 +12,7 @@ public class EnemyPathing : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = path[0].transform.position;
+        transform.position = waypoints[0].transform.position;
     }
 
     // Update is called once per frame
@@ -23,9 +23,9 @@ public class EnemyPathing : MonoBehaviour
 
     private void FollowPath()
     {
-        if (waypointIndex < path.Count)
+        if (waypointIndex < waypoints.Count)
         {
-            var targetPosition = path[waypointIndex].transform.position;
+            var targetPosition = waypoints[waypointIndex].transform.position;
             var movementThisFrame = moveSpeed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(
                 transform.position, targetPosition, movementThisFrame);
