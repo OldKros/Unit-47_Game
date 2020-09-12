@@ -1,0 +1,42 @@
+Player :
+
+	Player.cs :
+		Controls all the basic player functionalityl; move, fire, score, health ...
+
+		Fire() :
+			Master fire function, controls all the FireX methods
+
+		Move() :
+			moves the player when directional arrows or wasd are pressed.
+
+		FireLaser() :
+			Coroutine that contuously fires the laser
+
+		SetUpMoveBoundaries() :
+			Sets up the boundaries that the player can move in
+
+		FireRockets() :
+			Coroutine that fires a rocket
+
+
+Enemy :
+	Enemy.cs :
+		Controls the assigned sprite, hitpoints, shooting behaviour, score for kill
+		and the FX played on death
+
+	Enemypathing.cs:
+		Controls the path that an enemy will follow
+
+	FollowPath() :
+		Follows the path that is assigned the path variable.
+
+	EnemySpawner.cs :
+		Order of waves, Spawn each wave, Spawn each enemy in the wave.
+
+	WaveConfig.cs :
+		Contains waypoint data, which enemy to use, spawn speed, amount of enemies,
+		enemy movement speed.
+
+
+Shredder.cs :
+	shreds any objects that collide with the object.
