@@ -5,11 +5,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] GameObject projectilePrefab;
-    [SerializeField] float projectileSpeed = 10f;
-    [SerializeField] float health = 100;
+    [SerializeField] float projectileSpeed = 10.0f;
+    [SerializeField] float health = 100.0f;
     [SerializeField] float shotCounter;
     [SerializeField] float minTimeBetweenShots = 0.2f;
     [SerializeField] float maxTimeBetweenShots = 3.0f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class Enemy : MonoBehaviour
     {
         CountDownAndShoot();
     }
+
 
     private void CountDownAndShoot()
     {
@@ -54,6 +56,8 @@ public class Enemy : MonoBehaviour
         damageDealer.Hit();
 
         if (health <= 0.0f)
+        {
             Destroy(gameObject);
+        }
     }
 }

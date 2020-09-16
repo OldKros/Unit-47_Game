@@ -6,36 +6,44 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] List<WaveConfiguration> waveConfigs;
     [SerializeField] int startWave = 0;
-    [SerializeField] bool looping = false;
+    [SerializeField] float waveDelay = 2.0f;
+    bool looping = true;
+    float loopTime = 0.0f;
 
     // Start is called before the first frame update
-    IEnumerator Start()
+    void Start()
     {
-        do
-        {
-            yield return StartCoroutine(SpawnAllWaves());
-        } while (looping);
+        StartCoroutine(SpawnAllWaves());
     }
 
     private IEnumerator SpawnAllWaves()
     {
         for (int i = startWave; i < waveConfigs.Count; i++)
         {
-            yield return StartCoroutine(SpawnWave(waveConfigs[i]));
+            StartCoroutine(SpawnWave(waveConfigs[i]));
+            yield return new WaitForSeconds(waveDelay);
         }
     }
 
     private IEnumerator SpawnWave(WaveConfiguration waveToSpawn)
     {
-        for (int i = 0; i < waveToSpawn.GetAmountOfEnemies(); i++)
+        int loopCtr = waveToSpawn.GetLoopAmount();
+        yield return new WaitForSeconds(waveToSpawn.GetInitialDelay());
+        do
         {
-            GameObject enemy = Instantiate(
-                waveToSpawn.GetEnemyPrefab(),
-                waveToSpawn.GetPathWaypoints()[0].transform.position,
-                Quaternion.identity);
+            for (int i = 0; i < waveToSpawn.GetAmountOfEnemies(); i++)
+            {
+                var enemy = Instantiate(
+                    waveToSpawn.GetEnemyPrefab(),
+                    waveToSpawn.GetFirstWaypoint().transform.position,
+                    Quaternion.identity);
 
-            enemy.GetComponent<EnemyPathing>().SetWaveConfig(waveToSpawn);
-            yield return new WaitForSeconds(waveToSpawn.GetSpawnTime());
-        }
+                enemy.GetComponent<EnemyPathing>().SetWaveConfig(waveToSpawn);
+                yield return new WaitForSeconds(waveToSpawn.RandomSpawnTime());
+
+            }
+            loopCtr--;
+            yield return new WaitForSeconds(waveToSpawn.GetLoopDelay());
+        } while (loopCtr >= 0);
     }
 }

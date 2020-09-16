@@ -8,6 +8,7 @@ public class EnemyPathing : MonoBehaviour
     List<Transform> waypoints;
     int waypointIndex = 0;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +41,8 @@ public class EnemyPathing : MonoBehaviour
         }
         else
         {
+            // For now we will just destroy the object maybe later
+            // we can do something else later on
             Destroy(gameObject);
         }
     }

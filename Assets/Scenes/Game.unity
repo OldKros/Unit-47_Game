@@ -10012,6 +10012,11 @@ PrefabInstance:
       propertyPath: laserFireSpeed
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 520556936898562743, guid: 19c021bd878abd3419c241a7c35598d9,
+        type: 3}
+      propertyPath: health
+      value: 250000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19c021bd878abd3419c241a7c35598d9, type: 3}
 --- !u!1001 &2847308540291336031
@@ -10221,8 +10226,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8523103822162170831, guid: 0198ad9ae3304b04fae75dfaa6140457,
         type: 3}
+      propertyPath: waveConfigs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523103822162170831, guid: 0198ad9ae3304b04fae75dfaa6140457,
+        type: 3}
       propertyPath: looping
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8523103822162170831, guid: 0198ad9ae3304b04fae75dfaa6140457,
+        type: 3}
+      propertyPath: waveConfigs.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 89c08b0a157b5834da061dfa0336c350,
+        type: 2}
+    - target: {fileID: 8523103822162170831, guid: 0198ad9ae3304b04fae75dfaa6140457,
+        type: 3}
+      propertyPath: waveConfigs.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 47fd4fecfd010c343822c695086b42ff,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0198ad9ae3304b04fae75dfaa6140457, type: 3}
