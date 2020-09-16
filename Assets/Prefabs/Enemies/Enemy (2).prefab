@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2338366780827731516}
   - component: {fileID: 2938538315208739485}
+  - component: {fileID: -6989362076893620346}
   - component: {fileID: 7550933692129336172}
-  m_Layer: 0
+  - component: {fileID: 2048827436829362486}
+  m_Layer: 9
   m_Name: Enemy (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1942177156571402699}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.024, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -80,6 +82,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &-6989362076893620346
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942177156571402699}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.004039705, y: -0.028698921}
+  serializedVersion: 2
+  m_Radius: 0.39653504
 --- !u!114 &7550933692129336172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,3 +110,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25abc14a5174f244f9cb9b89aab0793f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2048827436829362486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942177156571402699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00954207ab249fc45ad149a4b806ac66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 8682811161780489944, guid: 249fb817290554a4da3ec69203c360bb,
+    type: 3}
+  projectileSpeed: 5
+  health: 100
+  shotCounter: 0
+  minTimeBetweenShots: 0.2
+  maxTimeBetweenShots: 3
