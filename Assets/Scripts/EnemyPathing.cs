@@ -7,6 +7,7 @@ public class EnemyPathing : MonoBehaviour
     WaveConfiguration waveConfig;
     List<Transform> waypoints;
     int waypointIndex = 0;
+    bool finishedRoute = false;
 
 
     // Start is called before the first frame update
@@ -21,7 +22,7 @@ public class EnemyPathing : MonoBehaviour
     {
         FollowPath();
     }
-
+    public bool FinishedRoute() { return finishedRoute; }
     public void SetWaveConfig(WaveConfiguration waveConfig)
     {
         this.waveConfig = waveConfig;
@@ -31,6 +32,7 @@ public class EnemyPathing : MonoBehaviour
     {
         if (waypointIndex < waypoints.Count)
         {
+
             var targetPosition = waypoints[waypointIndex].transform.position;
             var movementThisFrame = waveConfig.GetEnemyMoveSpeed() * Time.deltaTime;
             transform.position = Vector2.MoveTowards(
@@ -41,9 +43,14 @@ public class EnemyPathing : MonoBehaviour
         }
         else
         {
-            // For now we will just destroy the object maybe later
-            // we can do something else later on
-            Destroy(gameObject);
+            finishedRoute = true;
         }
+    }
+
+    public void ResetPosition()
+    {
+        finishedRoute = false;
+        waypointIndex = 0;
+        transform.position = waypoints[waypointIndex].transform.position;
     }
 }

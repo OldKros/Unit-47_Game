@@ -10,15 +10,14 @@ public class WaveConfiguration : ScriptableObject
     [SerializeField] int amountOfEnemies = 5;
     [SerializeField] float enemyMoveSpeed = 2.0f;
 
-
     [Header("Path")]
     [SerializeField] GameObject pathPrefab;
-    List<Transform> waypoints = new List<Transform>();
     [SerializeField] float timeBetweenSpawns = 0.5f;
     [SerializeField] float spawnTimeRandomFactor = 0.3f;
     [SerializeField] float loopDelay = 2.0f;
     [SerializeField] int loopAmount = 1;
     [SerializeField] float initialDelay = 0.0f;
+    [SerializeField] bool needAllDestroyed = false;
 
 
     public GameObject GetEnemyPrefab() { return enemyPrefab; }
@@ -27,31 +26,19 @@ public class WaveConfiguration : ScriptableObject
 
     public int GetAmountOfEnemies() { return amountOfEnemies; }
 
-    public Transform GetFirstWaypoint()
-    {
-        if (waypoints.Count == 0)
-            SetWaypoints();
-        return waypoints[0];
-    }
-
     public List<Transform> GetPathWaypoints()
     {
-        if (waypoints.Count == 0)
-            SetWaypoints();
-        return waypoints;
-    }
-
-    private void SetWaypoints()
-    {
+        List<Transform> waypoints = new List<Transform>();
         foreach (Transform wp in pathPrefab.transform)
         {
             waypoints.Add(wp);
         }
+        return waypoints;
     }
 
     public float GetLoopDelay() { return loopDelay; }
 
-    public int GetLoopAmount() { return loopAmount; }
+    public int GetLoopCount() { return loopAmount; }
 
     public float RandomSpawnTime()
     {
@@ -59,4 +46,7 @@ public class WaveConfiguration : ScriptableObject
     }
 
     public float GetInitialDelay() { return initialDelay; }
+
+    public bool NeedAllDestroyed() { return needAllDestroyed; }
+
 }
