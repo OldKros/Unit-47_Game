@@ -475,6 +475,16 @@ PrefabInstance:
       propertyPath: health
       value: 6000
       objectReference: {fileID: 0}
+    - target: {fileID: 520556936898562743, guid: 19c021bd878abd3419c241a7c35598d9,
+        type: 3}
+      propertyPath: maxHP
+      value: 6000
+      objectReference: {fileID: 0}
+    - target: {fileID: 520556936898562743, guid: 19c021bd878abd3419c241a7c35598d9,
+        type: 3}
+      propertyPath: curHP
+      value: 6000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19c021bd878abd3419c241a7c35598d9, type: 3}
 --- !u!1001 &2847308540291336031
@@ -943,6 +953,11 @@ PrefabInstance:
         type: 3}
       propertyPath: waveConfigs.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8523103822162170831, guid: 0198ad9ae3304b04fae75dfaa6140457,
+        type: 3}
+      propertyPath: enemyWaves.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8523103822162170831, guid: 0198ad9ae3304b04fae75dfaa6140457,
         type: 3}

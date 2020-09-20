@@ -25,6 +25,7 @@ public class EnemySpawner : MonoBehaviour
             StartCoroutine(InitialWaveSpawning(waveConfigs[i]));
             yield return new WaitForSeconds(delayBetweenWaves);
         }
+
         Debug.Log("Finished Spawning Waves");
         StartCoroutine(CheckLevelProgress());
     }
@@ -33,6 +34,7 @@ public class EnemySpawner : MonoBehaviour
     {
         // Debug.Log("Commencing Spawning");
         var enemyWave = new EnemyWave();
+        enemyWaves.Add(enemyWave);
         yield return new WaitForSeconds(waveConfig.GetInitialDelay());
         for (int i = 0; i < waveConfig.GetAmountOfEnemies(); i++)
         {
@@ -46,7 +48,6 @@ public class EnemySpawner : MonoBehaviour
             enemyWave.AddEnemy(enemy);
             yield return new WaitForSeconds(waveConfig.RandomSpawnTime());
         }
-        enemyWaves.Add(enemyWave);
         if (waveConfig.NeedAllDestroyed())
             StartCoroutine(LoopWaveUntilDead(waveConfig, enemyWave));
         else
@@ -69,16 +70,12 @@ public class EnemySpawner : MonoBehaviour
             loopCtr--;
             if (enemyWave.IsWaveDead())
             {
-                waveConfig.SetIsDefeated(true);
                 break;
             }
         }
         // Debug.Log("Succesfully looped");
-        if (!waveConfig.IsDefeated())
-        {
+        if (enemyWave.IsWaveDead())
             enemyWave.DestroyAllEnemiesInWave();
-            waveConfig.SetIsDefeated(true);
-        }
     }
 
     private IEnumerator LoopWaveUntilDead(WaveConfiguration waveConfig, EnemyWave enemyWave)
@@ -95,7 +92,6 @@ public class EnemySpawner : MonoBehaviour
             yield return StartCoroutine(RestartWave(waveConfig, enemyWave));
             yield return new WaitForSeconds(waveConfig.GetLoopDelay());
         }
-        waveConfig.SetIsDefeated(true);
     }
 
     private IEnumerator RestartWave(WaveConfiguration waveConfig, EnemyWave enemyWave)
@@ -113,9 +109,9 @@ public class EnemySpawner : MonoBehaviour
 
     private bool AreAllWavesFinishedOrDestroyed()
     {
-        foreach (var wave in waveConfigs)
+        foreach (var enemyWave in enemyWaves)
         {
-            if (!wave.IsDefeated())
+            if (!enemyWave.IsWaveDead() || !enemyWave.IsWaveFinished())
                 return false;
         }
         return true;
@@ -138,12 +134,10 @@ public class EnemySpawner : MonoBehaviour
     public class EnemyWave
     {
         public List<GameObject> enemyList { get; private set; }
-        public bool waveFinished { get; private set; }
 
         public EnemyWave()
         {
             enemyList = new List<GameObject>();
-            waveFinished = false;
         }
 
         public void AddEnemy(GameObject enemy)

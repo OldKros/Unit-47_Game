@@ -18,7 +18,6 @@ public class WaveConfiguration : ScriptableObject
     [SerializeField] int loopAmount = 1;
     [SerializeField] float initialDelay = 0.0f;
     [SerializeField] bool needAllDestroyed = false;
-    [SerializeField] bool isDefeated = false;
 
     public GameObject GetEnemyPrefab() { return enemyPrefab; }
 
@@ -48,9 +47,4 @@ public class WaveConfiguration : ScriptableObject
     public float GetInitialDelay() { return initialDelay; }
 
     public bool NeedAllDestroyed() { return needAllDestroyed; }
-
-    public bool IsDefeated() { return isDefeated; }
-
-    public void SetIsDefeated(bool isDefeated) { this.isDefeated = isDefeated; }
-
 }
