@@ -32,7 +32,6 @@ public class EnemyPathing : MonoBehaviour
     {
         if (waypointIndex < waypoints.Count)
         {
-
             var targetPosition = waypoints[waypointIndex].transform.position;
             var movementThisFrame = waveConfig.GetEnemyMoveSpeed() * Time.deltaTime;
             transform.position = Vector2.MoveTowards(
@@ -43,6 +42,7 @@ public class EnemyPathing : MonoBehaviour
         }
         else
         {
+            gameObject.SetActive(false);
             finishedRoute = true;
         }
     }
@@ -50,6 +50,7 @@ public class EnemyPathing : MonoBehaviour
     public void ResetPosition()
     {
         finishedRoute = false;
+        gameObject.SetActive(true);
         waypointIndex = 0;
         transform.position = waypoints[waypointIndex].transform.position;
     }
