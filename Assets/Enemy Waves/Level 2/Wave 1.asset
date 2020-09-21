@@ -23,4 +23,4 @@ MonoBehaviour:
   loopDelay: 2
   loopAmount: 4
   initialDelay: 0
-  needAllDestroyed: 1
+  needAllDestroyed: 0

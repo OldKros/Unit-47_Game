@@ -604,6 +604,31 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8374117975432254675, guid: fed9c8a6639091c46889a9cf54700c72,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2497735357029255178, guid: fed9c8a6639091c46889a9cf54700c72,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2497735357029255178, guid: fed9c8a6639091c46889a9cf54700c72,
+        type: 3}
+      propertyPath: m_textInfo.wordCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2497735357029255178, guid: fed9c8a6639091c46889a9cf54700c72,
+        type: 3}
+      propertyPath: m_textInfo.lineCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2497735357029255178, guid: fed9c8a6639091c46889a9cf54700c72,
+        type: 3}
+      propertyPath: m_textInfo.pageCount
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fed9c8a6639091c46889a9cf54700c72, type: 3}
 --- !u!1001 &6264636604656726660
@@ -814,7 +839,7 @@ PrefabInstance:
     - target: {fileID: 8523103822162170831, guid: 0198ad9ae3304b04fae75dfaa6140457,
         type: 3}
       propertyPath: waveConfigs.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8523103822162170831, guid: 0198ad9ae3304b04fae75dfaa6140457,
         type: 3}
