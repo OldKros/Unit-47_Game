@@ -5,7 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Header("General")]
-    [SerializeField] float health = 100.0f;
+    [SerializeField] float maxHP = 100.0f;
+    [SerializeField] float curHP = 100.0f;
     [SerializeField] int scoreWorth = 10;
 
     [Header("Laser")]
@@ -34,6 +35,7 @@ public class Enemy : MonoBehaviour
         CountDownAndShoot();
     }
 
+    public float GetHealthPercent() { return curHP / maxHP; }
     private void CountDownAndShoot()
     {
         shotTimer -= Time.deltaTime;
@@ -63,10 +65,13 @@ public class Enemy : MonoBehaviour
 
     private void ProcessHit(DamageDealer damageDealer)
     {
-        health -= damageDealer.GetDamage();
+        curHP -= damageDealer.GetDamage();
         damageDealer.Hit();
+        var healthBar = transform.Find("enemyHealthBar").GetComponent<EnemyHealthBar>();
+        healthBar.gameObject.SetActive(true);
+        healthBar.ShowHealth(GetHealthPercent());
 
-        if (health <= 0.0f)
+        if (curHP <= 0.0f)
         {
             AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVolume);
             FindObjectOfType<Player>().AddScore(scoreWorth);

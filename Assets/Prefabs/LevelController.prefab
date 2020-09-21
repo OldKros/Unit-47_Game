@@ -43,6 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d073d3634fefe34987a38f5c24ff1e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 520556936898562738, guid: 19c021bd878abd3419c241a7c35598d9,
+    type: 3}
+  gameCanvasPrefab: {fileID: 5360408136839205113, guid: fed9c8a6639091c46889a9cf54700c72,
+    type: 3}
   startMenu: Start Menu
   nextLevel: Level 1
   gameOver: Game Over

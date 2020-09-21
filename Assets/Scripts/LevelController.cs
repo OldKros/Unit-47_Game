@@ -6,9 +6,15 @@ public class LevelController : MonoBehaviour
 {
     [SerializeField] string startMenu = "Start Menu";
     [SerializeField] string nextLevel;
+    [SerializeField] string winScene = "Win Scene";
     [SerializeField] string gameOver = "Game Over";
 
-    delegate void LoadScene(string s);
+
+    void Start()
+    {
+
+    }
+
     public void LoadStartMenu()
     {
         SceneManager.LoadScene(startMenu);
@@ -22,6 +28,11 @@ public class LevelController : MonoBehaviour
     public void LoadNextScene()
     {
         SceneManager.LoadScene(nextLevel);
+    }
+
+    public void LoadWinScene()
+    {
+        SceneManager.LoadScene(winScene);
     }
 
     public void LoadGameOver()

@@ -6,11 +6,9 @@ using UnityEngine.UI;
 public class GameUI : MonoBehaviour
 {
     [SerializeField] List<Sprite> countdownSprites;
-    [SerializeField] List<GameObject> lives;
     GameObject countdownSprite;
     GameObject levelComplete;
     GameObject scoreText;
-
     float levelTimer;
 
     void Start()
@@ -31,16 +29,6 @@ public class GameUI : MonoBehaviour
             FindObjectOfType<Player>().GetScore().ToString();
     }
 
-    public void RemoveLife(int life)
-    {
-        lives[life - 1].SetActive(false);
-    }
-
-    public void AddLife(int life)
-    {
-        lives[life - 1].SetActive(true);
-    }
-
     public void SetLevelTimer(float timer)
     {
         levelTimer = timer;
@@ -59,6 +47,8 @@ public class GameUI : MonoBehaviour
             seconds--;
             yield return new WaitForSeconds(1);
         }
+        levelComplete.SetActive(false);
+        countdownSprite.SetActive(false);
     }
 
     private void SetLevelText()

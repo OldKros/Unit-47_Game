@@ -2,25 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthBar : MonoBehaviour
+public class EnemyHealthBar : MonoBehaviour
 {
-    [SerializeField] GameObject unit;
+    GameObject unit;
     Transform healthBar;
 
     // Start is called before the first frame update
     void Start()
     {
+        unit = transform.root.gameObject;
         healthBar = transform.Find("Bar");
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdateHealth();
+        // UpdateHealth();
     }
-    void UpdateHealth()
+    public void ShowHealth(float hp)
     {
-        float hp = unit.GetComponent<Player>().GetHealthPercent();
         healthBar.localScale = new Vector3(hp, 1f, 1f);
     }
 }

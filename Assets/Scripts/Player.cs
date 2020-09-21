@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] float maxHP = 200.0f;
     [SerializeField] float curHP = 200.0f;
     [SerializeField] int score = 0;
-    [SerializeField] [Range(0, 5)] int lives = 3;
+    [SerializeField] [Range(0, 3)] int lives = 3;
 
     [Header("Movement")]
     [SerializeField] float moveSpeed = 10.0f;
@@ -32,9 +32,10 @@ public class Player : MonoBehaviour
     bool invincible = false;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         SetUpMoveBoundaries();
+        SetUpSingleton();
     }
 
     // Update is called once per frame
@@ -42,6 +43,18 @@ public class Player : MonoBehaviour
     {
         Move();
         Fire();
+    }
+
+    void SetUpSingleton()
+    {
+        if (FindObjectsOfType(GetType()).Length > 1)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     public int GetScore() { return score; }
@@ -121,7 +134,7 @@ public class Player : MonoBehaviour
             }
             else
             {
-                FindObjectOfType<GameUI>().RemoveLife(lives);
+                FindObjectOfType<PlayerLives>().RemoveLife(lives);
                 lives--;
                 yield return StartCoroutine(BlinkAndRespawn());
             }
