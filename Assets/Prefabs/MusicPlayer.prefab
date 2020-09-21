@@ -140,10 +140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fba45f4bd1973488c0c6a53294c6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverClip: {fileID: 8300000, guid: cfc9f7cbc4b6ecc4eaf359653c11dac6, type: 3}
-  introClip: {fileID: 8300000, guid: dca48f4db8911864895054af5e791cce, type: 3}
-  level1Clip: {fileID: 8300000, guid: f138bbc336459e045b51609835887863, type: 3}
-  level2Clip: {fileID: 8300000, guid: 1e4aecc68b91e63408f57a6593e6b6d1, type: 3}
-  level3Clip: {fileID: 8300000, guid: 9c5dc6d8087df9c4bb7a0cd20111be47, type: 3}
-  winClip: {fileID: 8300000, guid: d96c4e5c3ba5b3c4f9cc025a9f83cba8, type: 3}
+  introClip: {fileID: 8300000, guid: 403a4134580d6ff4e8c08199c5459f13, type: 3}
+  gameOverClip: {fileID: 8300000, guid: 4c65820a8db789c468fd0f18e7d846fa, type: 3}
+  winClip: {fileID: 8300000, guid: a1c5a93113c8f1540adab19349d2cfd9, type: 3}
+  level1Clip: {fileID: 8300000, guid: 0b33dad5b42b3044ba9913367fad99a4, type: 3}
+  level2Clip: {fileID: 8300000, guid: 5f538c101480c90469e0356d4cba97d5, type: 3}
+  level3Clip: {fileID: 8300000, guid: eec3160edd0118648bbdf0f3d044720d, type: 3}
   volume: 0.3

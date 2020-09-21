@@ -43,7 +43,6 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitUntil(() => levelTimer >= waveConfig.GetInitialDelay());
         for (int i = 0; i < waveConfig.GetAmountOfEnemies(); i++)
         {
-            Debug.Log("Spawning enemy " + i);
             var enemy = Instantiate(
                 waveConfig.GetEnemyPrefab(),
                 waveConfig.GetPathWaypoints()[0].transform.position,
@@ -53,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
             enemyWave.AddEnemy(enemy);
             yield return new WaitForSeconds(waveConfig.RandomSpawnTime());
         }
-        enemyWave.SetFinishedSpawning(true);
+        enemyWave.SetInitalSpawn(true);
         if (waveConfig.NeedAllDestroyed())
             StartCoroutine(LoopWaveUntilDead(waveConfig, enemyWave));
         else
@@ -62,26 +61,28 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator LoopWave(WaveConfiguration waveConfig, EnemyWave enemyWave)
     {
-        // Debug.Log("Beginning Looping");
         int loopCtr = waveConfig.GetLoopCount();
-
         // wait until the wave has finished before looping
         yield return StartCoroutine(enemyWave.WaitUntilFinished());
 
         while (loopCtr > 0)
         {
             yield return new WaitForSeconds(waveConfig.GetLoopDelay());
-            yield return StartCoroutine(RestartWave(waveConfig, enemyWave));
-            yield return StartCoroutine(enemyWave.WaitUntilFinished());
-            loopCtr--;
-            if (enemyWave.IsWaveDead())
+            for (int i = 0; i < waveConfig.GetAmountOfEnemies(); i++)
             {
-                break;
+                var enemy = Instantiate(
+                    waveConfig.GetEnemyPrefab(),
+                    waveConfig.GetPathWaypoints()[0].transform.position,
+                    Quaternion.identity);
+                enemy.GetComponent<EnemyPathing>().SetWaveConfig(waveConfig);
+                enemyWave.AddEnemy(enemy);
+                yield return new WaitForSeconds(waveConfig.RandomSpawnTime());
             }
-        }
-        // Debug.Log("Succesfully looped");
-        if (enemyWave.IsWaveDead())
+            // yield return StartCoroutine(RestartWave(waveConfig, enemyWave));
+            yield return StartCoroutine(enemyWave.WaitUntilFinished());
             enemyWave.DestroyAllEnemiesInWave();
+            loopCtr--;
+        }
     }
 
     IEnumerator LoopWaveUntilDead(WaveConfiguration waveConfig, EnemyWave enemyWave)
@@ -148,7 +149,7 @@ public class EnemySpawner : MonoBehaviour
             finishedSpawning = false;
         }
 
-        public void SetFinishedSpawning(bool b)
+        public void SetInitalSpawn(bool b)
         {
             finishedSpawning = b;
         }
@@ -164,6 +165,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 Destroy(enemy.gameObject);
             }
+            enemyList.Clear();
         }
 
         public bool IsWaveDead()

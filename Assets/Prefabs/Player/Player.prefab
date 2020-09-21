@@ -111,15 +111,17 @@ MonoBehaviour:
   curHP: 300
   lives: 3
   moveSpeed: 10
-  xPadding: 0.5
-  yPadding: 0.5
+  leftPadding: 0.5
+  rightPadding: 0.5
+  topPadding: 5.5
+  bottomPadding: 1.5
   laserPrefab: {fileID: 521769867855222347, guid: acbbc0e3f2f0d684e9732767e1aeaf17,
     type: 3}
-  laserSpeed: 10
-  laserFireSpeed: 0.1
-  laserSound: {fileID: 8300000, guid: 458d38c85a1acb84287e062ddd7fb7e4, type: 3}
+  laserSpeed: 15
+  laserFireSpeed: 0.12
+  laserSound: {fileID: 8300000, guid: 1a2022f851aea7e41ad107a15b66944c, type: 3}
   laserSoundVol: 0.75
-  deathSound: {fileID: 8300000, guid: cfa16238cf5451448b8b93df0535dcdd, type: 3}
+  deathSound: {fileID: 8300000, guid: 72cda880daa325841bdef0a8b3a86edc, type: 3}
   deathSoundVol: 0.75
 --- !u!60 &2717670192791313267
 PolygonCollider2D:

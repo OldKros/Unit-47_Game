@@ -31,7 +31,10 @@ public class LevelController : MonoBehaviour
         {
             LoadWinScene();
         }
-        SceneManager.LoadScene(nextLevel);
+        else
+        {
+            SceneManager.LoadScene(nextLevel);
+        }
     }
 
     public void LoadWinScene()

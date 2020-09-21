@@ -12,18 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27feeb3faf8e99e4fa81e080b88025da, type: 3}
   m_Name: Wave 4
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1942177156571402699, guid: a141ae379008bff498da35753c23065e,
+  enemyPrefab: {fileID: 2673443165505573293, guid: f92cbb8d733db364f9ac7912d1e818c0,
     type: 3}
   amountOfEnemies: 5
   enemyMoveSpeed: 2
-  minTimeBetweenShots: 0.2
-  maxTimeBetweenShots: 0.5
-  laserSpeed: 10
   pathPrefab: {fileID: 625281092802360855, guid: 41f54bfc8ddb6b64bb457d286a156dae,
     type: 3}
   timeBetweenSpawns: 0.5
   spawnTimeRandomFactor: 0.3
   loopDelay: 2
-  loopAmount: 4
-  initialDelay: 0
+  loopAmount: 1
+  initialDelay: 25
   needAllDestroyed: 0

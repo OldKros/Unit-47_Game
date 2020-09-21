@@ -8,6 +8,7 @@ public class Meteor : MonoBehaviour
     [SerializeField] float maxHP = 300;
     [SerializeField] float curHP = 300;
     [SerializeField] int scoreWorth = 200;
+    [SerializeField] List<Sprite> crackSprites;
 
     [Header("Sound")]
     [SerializeField] AudioClip deathSound;
@@ -15,7 +16,7 @@ public class Meteor : MonoBehaviour
 
     [Header("Power Ups")]
     [SerializeField] List<GameObject> powerUps;
-    [SerializeField] [Range(0.0f, 1.0f)] float chanceToSpawn = 0.2f;
+    // [SerializeField] [Range(0.0f, 1.0f)] float chanceToSpawn = 0.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,7 @@ public class Meteor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        ChooseDamageSprite();
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -61,7 +62,26 @@ public class Meteor : MonoBehaviour
         {
             // AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVolume);
             FindObjectOfType<GameState>().AddScore(scoreWorth);
+            SpawnPowerUp();
             Destroy(gameObject);
         }
+    }
+
+    void SpawnPowerUp()
+    {
+        int powerUpToSpawn = Random.Range(0, powerUps.Count);
+        var powerup = Instantiate(powerUps[powerUpToSpawn], transform.position, Quaternion.identity);
+        powerup.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, -0.05f);
+    }
+
+    void ChooseDamageSprite()
+    {
+        float hp = curHP / maxHP;
+        if (hp <= 0.25f)
+            transform.Find("Cracks").GetComponent<SpriteRenderer>().sprite = crackSprites[2];
+        else if (hp <= 0.5f)
+            transform.Find("Cracks").GetComponent<SpriteRenderer>().sprite = crackSprites[1];
+        else if (hp <= 0.75f)
+            transform.Find("Cracks").GetComponent<SpriteRenderer>().sprite = crackSprites[0];
     }
 }

@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] float maxHP = 100.0f;
     [SerializeField] float curHP = 100.0f;
     [SerializeField] int scoreWorth = 10;
+    [SerializeField] List<Sprite> sprites;
 
     [Header("Laser")]
     [SerializeField] GameObject laserPrefab;
@@ -27,6 +28,8 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         shotTimer = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
+        int i = Random.Range(0, sprites.Count);
+        gameObject.GetComponent<SpriteRenderer>().sprite = sprites[i];
     }
 
     // Update is called once per frame
