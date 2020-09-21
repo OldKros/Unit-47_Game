@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     [Header("General")]
     [SerializeField] float maxHP = 200.0f;
     [SerializeField] float curHP = 200.0f;
-    [SerializeField] int score = 0;
+
     [SerializeField] [Range(0, 3)] int lives = 3;
 
     [Header("Movement")]
@@ -57,15 +57,11 @@ public class Player : MonoBehaviour
         }
     }
 
-    public int GetScore() { return score; }
-
-    public void AddScore(int score) { this.score += score; }
-
     public int GetLivesLeft() { return lives; }
 
     public float GetHealthPercent() { return curHP / maxHP; }
 
-    private void Fire()
+    void Fire()
     {
         if (Input.GetButtonDown("Fire1"))
         {
@@ -110,17 +106,20 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
+        Projectile projectile = collider.gameObject.GetComponent<Projectile>();
+        if (projectile)
+            ProcessHit(projectile);
         DamageDealer damageDealer = collider.gameObject.GetComponent<DamageDealer>();
         if (damageDealer)
-            StartCoroutine(ProcessHit(damageDealer));
+            ProcessHit(damageDealer);
     }
 
-    IEnumerator ProcessHit(DamageDealer damageDealer)
+    void ProcessHit(Projectile projectile)
     {
         if (!invincible)
         {
-            curHP -= damageDealer.GetDamage();
-            damageDealer.Hit();
+            curHP -= projectile.GetDamage();
+            projectile.Hit();
         }
 
         if (curHP <= 0.0f)
@@ -136,7 +135,33 @@ public class Player : MonoBehaviour
             {
                 FindObjectOfType<PlayerLives>().RemoveLife(lives);
                 lives--;
-                yield return StartCoroutine(BlinkAndRespawn());
+                StartCoroutine(BlinkAndRespawn());
+            }
+        }
+    }
+
+    void ProcessHit(DamageDealer damageDealer)
+    {
+        if (!invincible)
+        {
+            curHP -= damageDealer.GetDamage();
+            // damageDealer.Hit(gameObject.GetComponent<DamageDealer>().GetDamage());
+        }
+
+        if (curHP <= 0.0f)
+        {
+            if (lives <= 0)
+            {
+                AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVol);
+                FindObjectOfType<LevelController>().LoadGameOver();
+                Debug.Log("Dedded");
+                Destroy(gameObject);
+            }
+            else
+            {
+                FindObjectOfType<PlayerLives>().RemoveLife(lives);
+                lives--;
+                StartCoroutine(BlinkAndRespawn());
             }
         }
     }

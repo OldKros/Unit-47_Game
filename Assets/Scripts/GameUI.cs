@@ -9,13 +9,16 @@ public class GameUI : MonoBehaviour
     GameObject countdownSprite;
     GameObject levelComplete;
     GameObject scoreText;
+
     float levelTimer;
+
 
     void Start()
     {
         countdownSprite = transform.Find("Countdown Sprite").gameObject;
         levelComplete = transform.Find("Level Complete").gameObject;
         scoreText = transform.Find("Score").gameObject;
+
     }
 
     void Update()
@@ -25,8 +28,15 @@ public class GameUI : MonoBehaviour
 
     void UpdateScore()
     {
-        scoreText.GetComponent<TMPro.TextMeshProUGUI>().text =
-            FindObjectOfType<Player>().GetScore().ToString();
+        try
+        {
+            scoreText.GetComponent<TMPro.TextMeshProUGUI>().text =
+                FindObjectOfType<GameState>().GetScore().ToString();
+        }
+        catch (System.NullReferenceException)
+        {
+            scoreText.gameObject.SetActive(false);
+        }
     }
 
     public void SetLevelTimer(float timer)

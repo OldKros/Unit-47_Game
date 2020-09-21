@@ -132,9 +132,7 @@ public class EnemySpawner : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
         Debug.Log("Level Complete");
-        FindObjectOfType<GameUI>().SetLevelTimer(levelTimer);
-        yield return StartCoroutine(FindObjectOfType<GameUI>().FinishLevelAndCountdown(3));
-        FindObjectOfType<LevelController>().LoadNextScene();
+        StartCoroutine(FindObjectOfType<GameState>().FinishLevel(levelTimer));
     }
 
     [System.Serializable]

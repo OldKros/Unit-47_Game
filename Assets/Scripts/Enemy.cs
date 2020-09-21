@@ -36,7 +36,7 @@ public class Enemy : MonoBehaviour
     }
 
     public float GetHealthPercent() { return curHP / maxHP; }
-    private void CountDownAndShoot()
+    void CountDownAndShoot()
     {
         shotTimer -= Time.deltaTime;
         if (shotTimer <= 0.0f)
@@ -56,17 +56,21 @@ public class Enemy : MonoBehaviour
         AudioSource.PlayClipAtPoint(laserSound, transform.position, laserSoundVol);
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D collider)
     {
+        Projectile projectile = collider.gameObject.GetComponent<Projectile>();
+        if (projectile)
+            ProcessHit(projectile);
+
         DamageDealer damageDealer = collider.gameObject.GetComponent<DamageDealer>();
         if (damageDealer)
             ProcessHit(damageDealer);
     }
 
-    private void ProcessHit(DamageDealer damageDealer)
+    void ProcessHit(Projectile projectile)
     {
-        curHP -= damageDealer.GetDamage();
-        damageDealer.Hit();
+        curHP -= projectile.GetDamage();
+        projectile.Hit();
         var healthBar = transform.Find("enemyHealthBar").GetComponent<EnemyHealthBar>();
         healthBar.gameObject.SetActive(true);
         healthBar.ShowHealth(GetHealthPercent());
@@ -74,7 +78,23 @@ public class Enemy : MonoBehaviour
         if (curHP <= 0.0f)
         {
             AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVolume);
-            FindObjectOfType<Player>().AddScore(scoreWorth);
+            FindObjectOfType<GameState>().AddScore(scoreWorth);
+            Destroy(gameObject);
+        }
+    }
+
+    void ProcessHit(DamageDealer damageDealer)
+    {
+        curHP -= damageDealer.GetDamage();
+        // damageDealer.Hit(gameObject.GetComponent<DamageDealer>().GetDamage());
+        var healthBar = transform.Find("enemyHealthBar").GetComponent<EnemyHealthBar>();
+        healthBar.gameObject.SetActive(true);
+        healthBar.ShowHealth(GetHealthPercent());
+
+        if (curHP <= 0.0f)
+        {
+            AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVolume);
+            FindObjectOfType<GameState>().AddScore(scoreWorth);
             Destroy(gameObject);
         }
     }

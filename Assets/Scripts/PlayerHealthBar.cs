@@ -22,7 +22,14 @@ public class PlayerHealthBar : MonoBehaviour
 
     void UpdateHealth()
     {
-        float hp = unit.GetComponent<Player>().GetHealthPercent();
-        healthBar.localScale = new Vector3(hp, 1f, 1f);
+        if (unit != null)
+        {
+            float hp = unit.GetComponent<Player>().GetHealthPercent();
+            healthBar.localScale = new Vector3(hp, 1f, 1f);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
