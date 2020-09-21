@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class LevelController : MonoBehaviour
 {
     [SerializeField] string startMenu = "Start Menu";
-    [SerializeField] string nextLevel;
+    [SerializeField] string nextLevel = "0";
     [SerializeField] string winScene = "Win Scene";
     [SerializeField] string gameOver = "Game Over";
 
@@ -27,6 +27,10 @@ public class LevelController : MonoBehaviour
 
     public void LoadNextScene()
     {
+        if (nextLevel == "0")
+        {
+            LoadWinScene();
+        }
         SceneManager.LoadScene(nextLevel);
     }
 

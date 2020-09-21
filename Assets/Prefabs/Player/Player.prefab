@@ -119,7 +119,7 @@ MonoBehaviour:
   laserFireSpeed: 0.1
   laserSound: {fileID: 8300000, guid: 458d38c85a1acb84287e062ddd7fb7e4, type: 3}
   laserSoundVol: 0.75
-  deathSound: {fileID: 8300000, guid: b4393010153de88409ecf7b5b3341819, type: 3}
+  deathSound: {fileID: 8300000, guid: cfa16238cf5451448b8b93df0535dcdd, type: 3}
   deathSoundVol: 0.75
 --- !u!60 &2717670192791313267
 PolygonCollider2D:

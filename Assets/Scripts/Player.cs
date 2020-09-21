@@ -13,8 +13,10 @@ public class Player : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] float moveSpeed = 10.0f;
-    [SerializeField] float xPadding = 0.5f;
-    [SerializeField] float yPadding = 0.5f;
+    [SerializeField] float leftPadding = 0.5f;
+    [SerializeField] float rightPadding = 0.5f;
+    [SerializeField] float topPadding = 5.5f;
+    [SerializeField] float bottomPadding = 1.5f;
 
     [Header("Projectile/s")]
     [SerializeField] GameObject laserPrefab;
@@ -89,10 +91,10 @@ public class Player : MonoBehaviour
     void SetUpMoveBoundaries()
     {
         Camera gameCamera = Camera.main;
-        xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + xPadding;
-        xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - xPadding;
-        yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + yPadding;
-        yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - yPadding;
+        xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + leftPadding;
+        xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - rightPadding;
+        yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + bottomPadding;
+        yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - topPadding;
     }
 
     void Move()
@@ -126,13 +128,13 @@ public class Player : MonoBehaviour
         {
             if (lives <= 0)
             {
-                AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVol);
                 FindObjectOfType<LevelController>().LoadGameOver();
                 Debug.Log("Dedded");
                 Destroy(gameObject);
             }
             else
             {
+                AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVol);
                 FindObjectOfType<PlayerLives>().RemoveLife(lives);
                 lives--;
                 StartCoroutine(BlinkAndRespawn());

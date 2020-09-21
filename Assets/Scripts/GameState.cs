@@ -6,11 +6,6 @@ public class GameState : MonoBehaviour
 {
     [SerializeField] int score = 0;
 
-
-
-
-
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -38,7 +33,6 @@ public class GameState : MonoBehaviour
     public int GetScore() { return score; }
 
     public void AddScore(int score) { this.score += score; }
-
 
     public IEnumerator FinishLevel(float levelTimer)
     {
