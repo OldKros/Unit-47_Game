@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] float maxHP = 200.0f;
     [SerializeField] float curHP = 200.0f;
     [SerializeField] int score = 0;
+    [SerializeField] [Range(0, 5)] int lives = 3;
 
     [Header("Movement")]
     [SerializeField] float moveSpeed = 10.0f;
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour
 
     Coroutine laserFiringCoroutine;
     float xMin, xMax, yMin, yMax;
+    bool invincible = false;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +43,12 @@ public class Player : MonoBehaviour
         Move();
         Fire();
     }
+
+    public int GetScore() { return score; }
+
+    public void AddScore(int score) { this.score += score; }
+
+    public int GetLivesLeft() { return lives; }
 
     private void Fire()
     {
@@ -67,7 +75,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void SetUpMoveBoundaries()
+    void SetUpMoveBoundaries()
     {
         Camera gameCamera = Camera.main;
         xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + xPadding;
@@ -76,7 +84,7 @@ public class Player : MonoBehaviour
         yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - yPadding;
     }
 
-    private void Move()
+    void Move()
     {
         float deltaX = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
         float deltaY = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
@@ -85,24 +93,52 @@ public class Player : MonoBehaviour
         transform.position = new Vector2(newXPos, newYPos);
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D collider)
     {
         DamageDealer damageDealer = collider.gameObject.GetComponent<DamageDealer>();
         if (damageDealer)
-            ProcessHit(damageDealer);
+            StartCoroutine(ProcessHit(damageDealer));
     }
 
-    private void ProcessHit(DamageDealer damageDealer)
+    IEnumerator ProcessHit(DamageDealer damageDealer)
     {
-        curHP -= damageDealer.GetDamage();
-        damageDealer.Hit();
+        if (!invincible)
+        {
+            curHP -= damageDealer.GetDamage();
+            damageDealer.Hit();
+        }
 
         if (curHP <= 0.0f)
         {
-            AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVol);
-            FindObjectOfType<LevelController>().LoadGameOver();
-            Debug.Log("Dedded");
-            Destroy(gameObject);
+            if (lives <= 0)
+            {
+                AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVol);
+                FindObjectOfType<LevelController>().LoadGameOver();
+                Debug.Log("Dedded");
+                Destroy(gameObject);
+            }
+            else
+            {
+                FindObjectOfType<GameUI>().RemoveLife(lives);
+                lives--;
+                yield return StartCoroutine(BlinkAndRespawn());
+            }
         }
     }
+
+    IEnumerator BlinkAndRespawn()
+    {
+        invincible = true;
+        curHP = maxHP;
+        transform.position = new Vector2(0, -6);
+        for (int i = 0; i <= 3; i++)
+        {
+            GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);
+            yield return new WaitForSeconds(0.2f);
+            GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+            yield return new WaitForSeconds(0.2f);
+        }
+        invincible = false;
+    }
+
 }

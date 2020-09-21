@@ -69,6 +69,7 @@ public class Enemy : MonoBehaviour
         if (health <= 0.0f)
         {
             AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVolume);
+            FindObjectOfType<Player>().AddScore(scoreWorth);
             Destroy(gameObject);
         }
     }

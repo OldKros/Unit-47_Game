@@ -22,5 +22,5 @@ MonoBehaviour:
   spawnTimeRandomFactor: 0.4
   loopDelay: 2
   loopAmount: 4
-  initialDelay: 0
+  initialDelay: 3
   needAllDestroyed: 0
