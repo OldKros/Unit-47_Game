@@ -50,6 +50,8 @@ public class Player : MonoBehaviour
 
     public int GetLivesLeft() { return lives; }
 
+    public float GetHealthPercent() { return curHP / maxHP; }
+
     private void Fire()
     {
         if (Input.GetButtonDown("Fire1"))
