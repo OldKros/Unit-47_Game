@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
+    [SerializeField] float stopPoint = -6f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,9 +15,9 @@ public class PowerUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (transform.position.y <= stopPoint)
+        {
+            transform.position = new Vector2(transform.position.x, stopPoint);
+        }
     }
-
-
-
 }

@@ -60,7 +60,7 @@ public class MeteorSpawner : MonoBehaviour
             var meteor = Instantiate(meteorPrefabs[meteorToSpawn],
                                     spawnLoc, Quaternion.identity) as GameObject;
             meteor.GetComponent<Rigidbody2D>().velocity = new Vector2(xVelocity, yVelocity);
-            meteor.GetComponent<Meteor>().SetSpinSpeed(Random.Range(-3, -1));
+            meteor.GetComponent<Meteor>().SetSpinSpeed(Random.Range(-1.5f, -0.5f));
             meteor.GetComponent<Meteor>().SetPowerUps(powerUpsToSpawn);
 
             spawnTimer = Random.Range(minSpawnTimer, maxSpawnTimer);

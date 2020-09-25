@@ -6,11 +6,10 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Header("General")]
-    [SerializeField] float maxMaxHP = 1000.0f;
-    [SerializeField] float maxHP = 200.0f;
-    [SerializeField] float curHP = 200.0f;
-    [SerializeField] float maxShield = 200.0f;
-    [SerializeField] float curShield = 200.0f;
+    [SerializeField] int maxHP = 500;
+    [SerializeField] int curHP = 500;
+    [SerializeField] int maxShield = 200;
+    [SerializeField] int curShield = 200;
     [SerializeField] [Range(0, 3)] int lives = 3;
 
     [Header("Movement")]
@@ -83,21 +82,21 @@ public class Player : MonoBehaviour
 
     public int GetRocketCount() { return rocketCount; }
 
-    public float GetShieldPercent() { return curShield / maxShield; }
+    public float GetShieldPercent() { return (float)curShield / maxShield; }
 
-    public float GetHealthPercent() { return curHP / maxHP; }
+    public float GetHealthPercent() { return (float)curHP / maxHP; }
 
-    public void AddMaxHP(int amount)
-    {
-        if (maxHP < maxMaxHP)
-            maxHP += amount;
-
-        curHP = maxHP;
-    }
+    public void Heal(int amount) { curHP = maxHP; }
 
     public void AddShield() { curShield = maxShield; }
 
-    public void AddRocket() { if (rocketCount <= 99) rocketCount++; }
+    public void AddRockets(int rocketsToGive)
+    {
+        rocketCount += rocketsToGive;
+        if (rocketCount <= 99) rocketCount = 99;
+    }
+
+    public void AddLife() { if (lives < 3) lives++; }
 
     void Fire()
     {
@@ -165,7 +164,7 @@ public class Player : MonoBehaviour
     void DeactivateShield()
     {
         AudioSource.PlayClipAtPoint(shieldsDownSound, transform.position, shieldsDownVol);
-        curShield = 0f;
+        curShield = 0;
         shield.SetActive(false);
     }
 
@@ -186,9 +185,11 @@ public class Player : MonoBehaviour
     {
         if (!invincible)
         {
-            if (curShield >= (float)damage)
+            if (curShield >= damage)
             {
+                int temp = (int)curShield;
                 curShield -= damage;
+                damage -= temp;
                 if (curShield <= 0f)
                 {
                     damage -= (int)curShield;

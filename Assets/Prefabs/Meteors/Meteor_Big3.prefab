@@ -50,6 +50,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -61,6 +63,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -140,9 +143,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f2c92d228b3adda49bbe25190c4a3081, type: 3}
   - {fileID: 21300000, guid: 1f4875de83c4cc4458102aca9b6d8ee3, type: 3}
   - {fileID: 21300000, guid: 848f8d79488f96b42983cad7cfc7ce90, type: 3}
+  deathVFX: {fileID: 8671470565954915420, guid: 0c0f8c4dca2014c4a82a2e136aa636b8,
+    type: 3}
   deathSound: {fileID: 0}
   deathSoundVol: 0.5
-  chanceToSpawn: 0.2
+  powerUpChance: 0.5
+  spinSpeed: 0
 --- !u!114 &1540272074893158806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +207,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -212,6 +220,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0

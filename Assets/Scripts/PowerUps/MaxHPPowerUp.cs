@@ -10,7 +10,7 @@ public class MaxHPPowerUp : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        collider.GetComponent<Player>().AddMaxHP(amountToAdd);
+        collider.GetComponent<Player>().Heal(amountToAdd);
         AudioSource.PlayClipAtPoint(pickupSoundEffect, transform.position, pickupSEVol);
         gameObject.SetActive(false);
         Destroy(gameObject);

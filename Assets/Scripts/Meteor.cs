@@ -5,12 +5,13 @@ using UnityEngine;
 public class Meteor : MonoBehaviour
 {
     [Header("General")]
-    [SerializeField] float maxHP = 300;
-    [SerializeField] float curHP = 300;
+    [SerializeField] int maxHP = 300;
+    [SerializeField] int curHP = 300;
     [SerializeField] int scoreWorth = 200;
     [SerializeField] Sprite[] crackSprites;
 
-    [Header("Sound")]
+    [Header("Death")]
+    [SerializeField] GameObject deathVFX;
     [SerializeField] AudioClip deathSound;
     [SerializeField] [Range(0f, 1f)] float deathSoundVol = 0.5f;
 
@@ -53,11 +54,11 @@ public class Meteor : MonoBehaviour
             ProcessHit(damageDealer.GetDamage());
     }
 
-    void ProcessHit(float damage)
+    void ProcessHit(int damage)
     {
         curHP -= damage;
 
-        if (curHP <= 0.0f)
+        if (curHP <= 0)
         {
             // AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVolume);
             FindObjectOfType<GameState>().AddScore(scoreWorth);
@@ -73,13 +74,13 @@ public class Meteor : MonoBehaviour
         {
             int powerUpToSpawn = Random.Range(0, powerUps.Length - 1);
             var powerup = Instantiate(powerUps[powerUpToSpawn], transform.position, Quaternion.identity);
-            powerup.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, -0.4f);
+            powerup.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, -1.0f);
         }
     }
 
     void ChooseDamageSprite()
     {
-        float hp = curHP / maxHP;
+        float hp = (float)curHP / maxHP;
         if (hp <= 0.25f)
             transform.Find("Cracks").GetComponent<SpriteRenderer>().sprite = crackSprites[2];
         else if (hp <= 0.5f)
