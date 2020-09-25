@@ -157,6 +157,7 @@ MonoBehaviour:
   laserPrefab: {fileID: 2701237790540852289, guid: b19c439937331334a891578b392b300b,
     type: 3}
   laserSpeed: 3
+  laserDamage: 200
   minTimeBetweenShots: 2
   maxTimeBetweenShots: 5
   laserSound: {fileID: 8300000, guid: ad05c0ec289e369449b1fa81caeffa49, type: 3}
@@ -243,12 +244,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6921182351847473192, guid: 7b5c350fc34cfb84ead9dede05884083,
+    - target: {fileID: 6921182352424105543, guid: 7b5c350fc34cfb84ead9dede05884083,
         type: 3}
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6921182352424105543, guid: 7b5c350fc34cfb84ead9dede05884083,
+    - target: {fileID: 6921182351847473192, guid: 7b5c350fc34cfb84ead9dede05884083,
         type: 3}
       propertyPath: m_Layer
       value: 0

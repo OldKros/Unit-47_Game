@@ -6,25 +6,26 @@ public class MeteorSpawner : MonoBehaviour
 {
     [Header("General")]
     [SerializeField] List<GameObject> meteorPrefabs;
+    [SerializeField] List<GameObject> powerUpsToSpawn;
 
     [Header("Spawning")]
+    [SerializeField] float leftPadding = 0.05f;
+    [SerializeField] float rightPadding = 0.05f;
     [SerializeField] float minSpawnTimer = 5.0f;
     [SerializeField] float maxSpawnTimer = 10.0f;
 
     [Header("Travel")]
-    [SerializeField] float minX = -3.2f;
-    [SerializeField] float maxX = 3.2f;
-    [SerializeField] float minSpeed = -2f;
-    [SerializeField] float maxSpeed = -6f;
-    float meteorSpeedDown = -6f;
+    [SerializeField] float yMinSpeed = 2f;
+    [SerializeField] float yMaxSpeed = 6f;
 
-    float spawnTimer;
+    float spawnTimer, xMin, xMax;
     public Coroutine spawnRoutine { get; private set; }
 
 
     // Start is called before the first frame update
     void Start()
     {
+        SetSpawnBoundaries();
         spawnTimer = Random.Range(minSpawnTimer, maxSpawnTimer);
         spawnRoutine = StartCoroutine(SpawnMeteors());
     }
@@ -35,20 +36,32 @@ public class MeteorSpawner : MonoBehaviour
         spawnTimer -= Time.deltaTime;
     }
 
+    void SetSpawnBoundaries()
+    {
+        Camera gameCamera = Camera.main;
+        xMin = gameCamera.ViewportToWorldPoint(new Vector3(0f, 0f, 0f)).x + leftPadding;
+        xMax = gameCamera.ViewportToWorldPoint(new Vector3(1f, 0f, 0f)).x - rightPadding;
+    }
+
     IEnumerator SpawnMeteors()
     {
+        Vector2 spawnLoc, target;
         while (true)
         {
             yield return new WaitUntil(() => spawnTimer <= 0);
-            meteorSpeedDown = Random.Range(minSpeed, maxSpeed);
-            Vector2 spawnLoc = RandomSpawnLoc();
-            Vector2 target = GetTarget();
-            float xVelocity = (spawnLoc.x - target.x) / ((spawnLoc.y - target.y) / meteorSpeedDown);
+            float yVelocity = Random.Range(-yMinSpeed, -yMaxSpeed);
+            spawnLoc = RandomSpawnLoc();
+            target = GetTarget();
+            // xVel = the distance along the x axis divided by
+            // the distance along the y axis divided by the speed it travel the y axis
+            float xVelocity = (spawnLoc.x - target.x) / ((spawnLoc.y - target.y) / yVelocity);
 
             int meteorToSpawn = Random.Range(0, meteorPrefabs.Count - 1);
             var meteor = Instantiate(meteorPrefabs[meteorToSpawn],
                                     spawnLoc, Quaternion.identity) as GameObject;
-            meteor.GetComponent<Rigidbody2D>().velocity = new Vector2(xVelocity, meteorSpeedDown);
+            meteor.GetComponent<Rigidbody2D>().velocity = new Vector2(xVelocity, yVelocity);
+            meteor.GetComponent<Meteor>().SetSpinSpeed(Random.Range(-3, -1));
+            meteor.GetComponent<Meteor>().SetPowerUps(powerUpsToSpawn);
 
             spawnTimer = Random.Range(minSpawnTimer, maxSpawnTimer);
         }
@@ -56,16 +69,15 @@ public class MeteorSpawner : MonoBehaviour
 
     Vector2 RandomSpawnLoc()
     {
-        float x = Random.Range(minX, maxX);
-        float y = gameObject.transform.position.y;
+        float x = Random.Range(xMin, xMax);
+        float y = transform.position.y;
 
         return new Vector2(x, y);
     }
 
-
     Vector2 GetTarget()
     {
-        float x = Random.Range(minX, maxX);
+        float x = Random.Range(xMin, xMax);
         float y = -transform.position.y;
 
         return new Vector2(x, y);

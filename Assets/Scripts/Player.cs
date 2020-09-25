@@ -6,9 +6,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [Header("General")]
+    [SerializeField] float maxMaxHP = 1000.0f;
     [SerializeField] float maxHP = 200.0f;
     [SerializeField] float curHP = 200.0f;
-
+    [SerializeField] float maxShield = 200.0f;
+    [SerializeField] float curShield = 200.0f;
     [SerializeField] [Range(0, 3)] int lives = 3;
 
     [Header("Movement")]
@@ -18,9 +20,10 @@ public class Player : MonoBehaviour
     [SerializeField] float topPadding = 5.5f;
     [SerializeField] float bottomPadding = 1.5f;
 
-    [Header("Projectile/s")]
+    [Header("Laser")]
     [SerializeField] GameObject laserPrefab;
     [SerializeField] float laserSpeed = 10f;
+    [SerializeField] int laserDamage = 50;
     [SerializeField] float laserFireSpeed = 0.2f; // in seconds
 
     [Header("Audio")]
@@ -32,10 +35,12 @@ public class Player : MonoBehaviour
     Coroutine laserFiringCoroutine;
     float xMin, xMax, yMin, yMax;
     bool invincible = false;
+    GameObject shield;
 
     // Start is called before the first frame update
     void Awake()
     {
+        shield = transform.Find("Shield").gameObject;
         SetUpMoveBoundaries();
         SetUpSingleton();
     }
@@ -45,6 +50,7 @@ public class Player : MonoBehaviour
     {
         Move();
         Fire();
+        ManageShield();
     }
 
     void SetUpSingleton()
@@ -62,7 +68,22 @@ public class Player : MonoBehaviour
 
     public int GetLivesLeft() { return lives; }
 
+    public float GetShieldPercent() { return curShield / maxShield; }
+
     public float GetHealthPercent() { return curHP / maxHP; }
+
+    public void AddMaxHP(int amount)
+    {
+        if (maxHP < maxMaxHP)
+            maxHP += amount;
+
+        curHP = maxHP;
+    }
+
+    public void AddShield()
+    {
+        curShield = maxShield;
+    }
 
     void Fire()
     {
@@ -84,6 +105,7 @@ public class Player : MonoBehaviour
                                             transform.position,
                                             Quaternion.identity) as GameObject;
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
+            laser.GetComponent<Projectile>().SetDamage(laserDamage);
             AudioSource.PlayClipAtPoint(laserSound, transform.position, laserSoundVol);
             yield return new WaitForSeconds(laserFireSpeed);
         }
@@ -107,67 +129,66 @@ public class Player : MonoBehaviour
         transform.position = new Vector2(newXPos, newYPos);
     }
 
+    void ManageShield()
+    {
+        if (curShield > 0)
+        {
+            shield.SetActive(true);
+        }
+        else
+        {
+            shield.SetActive(false);
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D collider)
     {
         Projectile projectile = collider.gameObject.GetComponent<Projectile>();
         if (projectile)
-            ProcessHit(projectile);
-        DamageDealer damageDealer = collider.gameObject.GetComponent<DamageDealer>();
-        if (damageDealer)
-            ProcessHit(damageDealer);
-    }
-
-    void ProcessHit(Projectile projectile)
-    {
-        if (!invincible)
         {
-            curHP -= projectile.GetDamage();
+            ProcessHit(projectile.GetDamage());
             projectile.Hit();
         }
-
-        if (curHP <= 0.0f)
-        {
-            if (lives <= 0)
-            {
-                FindObjectOfType<LevelController>().LoadGameOver();
-                Debug.Log("Dedded");
-                Destroy(gameObject);
-            }
-            else
-            {
-                AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVol);
-                FindObjectOfType<PlayerLives>().RemoveLife(lives);
-                lives--;
-                StartCoroutine(BlinkAndRespawn());
-            }
-        }
+        DamageDealer damageDealer = collider.gameObject.GetComponent<DamageDealer>();
+        if (damageDealer)
+            ProcessHit(damageDealer.GetDamage());
     }
 
-    void ProcessHit(DamageDealer damageDealer)
+    void ProcessHit(int damage)
     {
         if (!invincible)
         {
-            curHP -= damageDealer.GetDamage();
-            // damageDealer.Hit(gameObject.GetComponent<DamageDealer>().GetDamage());
+            if (curShield >= damage)
+            {
+                curShield -= damage;
+            }
+            else
+            {
+                damage -= (int)curShield;
+                curShield = 0;
+                curHP -= damage;
+            }
         }
 
         if (curHP <= 0.0f)
         {
             if (lives <= 0)
             {
-                AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVol);
                 FindObjectOfType<LevelController>().LoadGameOver();
                 Debug.Log("Dedded");
                 Destroy(gameObject);
             }
             else
             {
+                AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVol);
                 FindObjectOfType<PlayerLives>().RemoveLife(lives);
                 lives--;
                 StartCoroutine(BlinkAndRespawn());
             }
         }
     }
+
+
 
     IEnumerator BlinkAndRespawn()
     {

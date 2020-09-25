@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5337583865036960171}
   - component: {fileID: 1234601374556440582}
   - component: {fileID: 7794346758507453971}
-  - component: {fileID: 2690052732809278817}
+  - component: {fileID: 8800907606001402021}
   - component: {fileID: 764842303237651971}
   - component: {fileID: 1540272074893158806}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Meteor_Big4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,8 +105,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &2690052732809278817
-PolygonCollider2D:
+--- !u!58 &8800907606001402021
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -119,30 +119,8 @@ PolygonCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.98, y: 0.96}
-    newSize: {x: 1.01, y: 0.84}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.3964082, y: -0.23568034}
-      - {x: 0.49354434, y: -0.008496761}
-      - {x: 0.5021361, y: 0.021360636}
-      - {x: 0.23781621, y: 0.42000008}
-      - {x: -0.345, y: 0.42}
-      - {x: -0.36213613, y: 0.3613131}
-      - {x: -0.46204114, y: 0.061455727}
-      - {x: -0.5164559, y: -0.104177}
-      - {x: -0.24499999, y: -0.42}
-      - {x: -0.16499999, y: -0.42}
-      - {x: 0.10927224, y: -0.2942245}
-      - {x: 0.3452381, y: -0.3413608}
-      - {x: 0.36636055, y: -0.28704095}
+  serializedVersion: 2
+  m_Radius: 0.42103487
 --- !u!114 &764842303237651971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +142,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 125ffce32c184a647be1412e1cbdcca0, type: 3}
   deathSound: {fileID: 0}
   deathSoundVol: 0.5
-  powerUps: []
   chanceToSpawn: 0.2
 --- !u!114 &1540272074893158806
 MonoBehaviour:
@@ -189,7 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2578616215514923141}
   - component: {fileID: 1528920247200023108}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cracks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +223,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 306
+  m_SortingOrder: 310
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

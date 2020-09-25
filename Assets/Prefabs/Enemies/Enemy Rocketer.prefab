@@ -157,6 +157,7 @@ MonoBehaviour:
   laserPrefab: {fileID: 8682811161780489944, guid: 5a01579c42696784fb9c8e44859bd8ff,
     type: 3}
   laserSpeed: 10
+  laserDamage: 150
   minTimeBetweenShots: 0.2
   maxTimeBetweenShots: 3
   laserSound: {fileID: 8300000, guid: 093e7ad29fa09714c904e193c625beb2, type: 3}

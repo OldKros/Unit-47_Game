@@ -18,7 +18,6 @@ public class GameUI : MonoBehaviour
         countdownSprite = transform.Find("Countdown Sprite").gameObject;
         levelComplete = transform.Find("Level Complete").gameObject;
         scoreText = transform.Find("Score").gameObject;
-
     }
 
     void Update()

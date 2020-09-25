@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5337583865036960171}
   - component: {fileID: 1234601374556440582}
   - component: {fileID: 7794346758507453971}
-  - component: {fileID: 2690052732809278817}
+  - component: {fileID: 1413487873050664914}
   - component: {fileID: 764842303237651971}
   - component: {fileID: 1540272074893158806}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Meteor_Big1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &2690052732809278817
+--- !u!60 &1413487873050664914
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,19 +130,19 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.3964082, y: -0.23568034}
-      - {x: 0.49354434, y: -0.008496761}
-      - {x: 0.5021361, y: 0.021360636}
-      - {x: 0.23781621, y: 0.42000008}
-      - {x: -0.345, y: 0.42}
-      - {x: -0.36213613, y: 0.3613131}
-      - {x: -0.46204114, y: 0.061455727}
-      - {x: -0.5164559, y: -0.104177}
-      - {x: -0.24499999, y: -0.42}
-      - {x: -0.16499999, y: -0.42}
-      - {x: 0.10927224, y: -0.2942245}
-      - {x: 0.3452381, y: -0.3413608}
-      - {x: 0.36636055, y: -0.28704095}
+    - - {x: 0.39302886, y: -0.20450926}
+      - {x: 0.5026058, y: 0.015067577}
+      - {x: 0.44753814, y: 0.096687794}
+      - {x: 0.2298603, y: 0.41521168}
+      - {x: -0.3282404, y: 0.41042304}
+      - {x: -0.33986044, y: 0.37648082}
+      - {x: -0.4571154, y: 0.045211554}
+      - {x: -0.49901462, y: -0.09972119}
+      - {x: -0.21148062, y: -0.40683174}
+      - {x: -0.15781736, y: -0.38408637}
+      - {x: 0.103028774, y: -0.29246616}
+      - {x: 0.24739432, y: -0.30655265}
+      - {x: 0.33993232, y: -0.3264084}
 --- !u!114 &764842303237651971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,12 +159,11 @@ MonoBehaviour:
   curHP: 1000
   scoreWorth: 500
   crackSprites:
-  - {fileID: 21300000, guid: 1f3bc7dca016b54468b36cd91ba04bd9, type: 3}
   - {fileID: 21300000, guid: ecfeafa1b1b9e7d41ace95b433c011d5, type: 3}
   - {fileID: 21300000, guid: 307dd44e0eb9c4f4f87a5bce4f460feb, type: 3}
+  - {fileID: 21300000, guid: ea7b89cdfdee39a43a8d71a17c7c1c9a, type: 3}
   deathSound: {fileID: 0}
   deathSoundVol: 0.5
-  powerUps: []
   chanceToSpawn: 0.2
 --- !u!114 &1540272074893158806
 MonoBehaviour:
@@ -189,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2948776175173624024}
   - component: {fileID: 5106778167841749286}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Cracks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +245,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 306
+  m_SortingOrder: 310
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

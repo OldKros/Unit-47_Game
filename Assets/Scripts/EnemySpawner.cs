@@ -52,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
             enemyWave.AddEnemy(enemy);
             yield return new WaitForSeconds(waveConfig.RandomSpawnTime());
         }
-        enemyWave.SetInitalSpawn(true);
+        enemyWave.finishedSpawning = true;
         if (waveConfig.NeedAllDestroyed())
             StartCoroutine(LoopWaveUntilDead(waveConfig, enemyWave));
         else
@@ -63,7 +63,7 @@ public class EnemySpawner : MonoBehaviour
     {
         int loopCtr = waveConfig.GetLoopCount();
         // wait until the wave has finished before looping
-        yield return StartCoroutine(enemyWave.WaitUntilFinished());
+        yield return new WaitUntil(() => enemyWave.IsWaveFinished());
 
         while (loopCtr > 0)
         {
@@ -79,7 +79,9 @@ public class EnemySpawner : MonoBehaviour
                 yield return new WaitForSeconds(waveConfig.RandomSpawnTime());
             }
             // yield return StartCoroutine(RestartWave(waveConfig, enemyWave));
-            yield return StartCoroutine(enemyWave.WaitUntilFinished());
+            enemyWave.finishedSpawning = true;
+            yield return new WaitUntil(() => enemyWave.IsWaveFinished());
+            enemyWave.finishedSpawning = false;
             enemyWave.DestroyAllEnemiesInWave();
             loopCtr--;
         }
@@ -141,17 +143,12 @@ public class EnemySpawner : MonoBehaviour
     {
         public List<GameObject> enemyList { get; private set; }
 
-        public bool finishedSpawning { get; private set; }
+        public bool finishedSpawning { get; set; }
 
         public EnemyWave()
         {
             enemyList = new List<GameObject>();
             finishedSpawning = false;
-        }
-
-        public void SetInitalSpawn(bool b)
-        {
-            finishedSpawning = b;
         }
 
         public void AddEnemy(GameObject enemy)
@@ -195,16 +192,6 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
             return true;
-        }
-
-        public IEnumerator WaitUntilFinished()
-        {
-            bool finished = false;
-            while (!finished)
-            {
-                finished = IsWaveFinished();
-                yield return new WaitForSeconds(0.2f);
-            }
         }
     }
 }

@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 5525111381914122892}
   - component: {fileID: -167070679395148419}
   - component: {fileID: -6486760823718419487}
-  m_Layer: 0
+  - component: {fileID: 7403211121496399702}
+  - component: {fileID: 7529924679809995636}
+  m_Layer: 13
   m_Name: HP PowerUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,3 +130,30 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.34, y: 0.33}
   m_EdgeRadius: 0
+--- !u!114 &7403211121496399702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3478734183755621141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 719f77a7e1badb34c8fb91166177a2bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7529924679809995636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3478734183755621141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33c3bbfe7d8fe784d980cd6bcf138b23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountToAdd: 100
+  pickupSoundEffect: {fileID: 8300000, guid: 987b790b12ac19e4d9e2b990c20c0d53, type: 3}
+  pickupSEVol: 0.75

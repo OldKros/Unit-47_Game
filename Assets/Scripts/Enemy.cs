@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     [Header("Laser")]
     [SerializeField] GameObject laserPrefab;
     [SerializeField] float laserSpeed = 10.0f;
+    [SerializeField] int laserDamage = 50;
     float shotTimer;
     [SerializeField] float minTimeBetweenShots = 0.2f;
     [SerializeField] float maxTimeBetweenShots = 3.0f;
@@ -51,11 +52,11 @@ public class Enemy : MonoBehaviour
 
     void Fire()
     {
-        GameObject projectile = Instantiate(laserPrefab,
+        GameObject laser = Instantiate(laserPrefab,
                                             transform.position,
                                             Quaternion.identity) as GameObject;
-        projectile.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -laserSpeed);
-
+        laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -laserSpeed);
+        laser.GetComponent<Projectile>().SetDamage(laserDamage);
         AudioSource.PlayClipAtPoint(laserSound, transform.position, laserSoundVol);
     }
 
@@ -63,17 +64,18 @@ public class Enemy : MonoBehaviour
     {
         Projectile projectile = collider.gameObject.GetComponent<Projectile>();
         if (projectile)
-            ProcessHit(projectile);
-
+        {
+            ProcessHit(projectile.GetDamage());
+            projectile.Hit();
+        }
         DamageDealer damageDealer = collider.gameObject.GetComponent<DamageDealer>();
         if (damageDealer)
-            ProcessHit(damageDealer);
+            ProcessHit(damageDealer.GetDamage());
     }
 
-    void ProcessHit(Projectile projectile)
+    void ProcessHit(float damage)
     {
-        curHP -= projectile.GetDamage();
-        projectile.Hit();
+        curHP -= damage;
         var healthBar = transform.Find("enemyHealthBar").GetComponent<EnemyHealthBar>();
         healthBar.gameObject.SetActive(true);
         healthBar.ShowHealth(GetHealthPercent());
@@ -86,19 +88,5 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void ProcessHit(DamageDealer damageDealer)
-    {
-        curHP -= damageDealer.GetDamage();
-        // damageDealer.Hit(gameObject.GetComponent<DamageDealer>().GetDamage());
-        var healthBar = transform.Find("enemyHealthBar").GetComponent<EnemyHealthBar>();
-        healthBar.gameObject.SetActive(true);
-        healthBar.ShowHealth(GetHealthPercent());
 
-        if (curHP <= 0.0f)
-        {
-            AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVolume);
-            FindObjectOfType<GameState>().AddScore(scoreWorth);
-            Destroy(gameObject);
-        }
-    }
 }

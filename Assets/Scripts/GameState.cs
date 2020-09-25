@@ -37,6 +37,8 @@ public class GameState : MonoBehaviour
     public IEnumerator FinishLevel(float levelTimer)
     {
         FindObjectOfType<GameUI>().SetLevelTimer(levelTimer);
+        // maybe show the score to the player
+        score = 0;
         StopCoroutine(FindObjectOfType<MeteorSpawner>().spawnRoutine);
         yield return StartCoroutine(FindObjectOfType<GameUI>().FinishLevelAndCountdown(3));
         FindObjectOfType<LevelController>().LoadNextScene();

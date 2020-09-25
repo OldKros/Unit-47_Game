@@ -48,9 +48,12 @@ MonoBehaviour:
   - {fileID: 412578823762543112, guid: d74cdf7a4e6bcdf4aa8d236378cbdd26, type: 3}
   - {fileID: 412578823762543112, guid: 04e71c9285e6ac34d8bcdf335be02012, type: 3}
   - {fileID: 412578823762543112, guid: e856184e10faaf245a8a9967e26c3fdf, type: 3}
+  powerUpsToSpawn:
+  - {fileID: 3478734183755621141, guid: 9207f3a4e46c5474eb7c6bdb186f9e02, type: 3}
+  - {fileID: 4742736502277667617, guid: 43dd9942ade4f1d4c9a969e9fb988d01, type: 3}
+  leftPadding: 0.05
+  rightPadding: 0.05
   minSpawnTimer: 5
   maxSpawnTimer: 15
-  minX: -3.2
-  maxX: 3.2
-  minSpeed: -2
-  maxSpeed: -6
+  yMinSpeed: 2
+  yMaxSpeed: 6

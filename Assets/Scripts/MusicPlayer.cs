@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MusicPlayer : MonoBehaviour
 {
-
+    [SerializeField] bool play = true;
     [SerializeField] AudioClip introClip;
     [SerializeField] AudioClip gameOverClip;
     [SerializeField] AudioClip winClip;
@@ -54,38 +54,40 @@ public class MusicPlayer : MonoBehaviour
 
     public void PlayClip(string scene)
     {
-        audioSource.Stop();
-        switch (scene)
+        if (play)
         {
-            case "Start Menu":
-                audioSource.loop = false;
-                audioSource.clip = introClip;
-                break;
-            case "Game Over":
-                audioSource.loop = false;
-                audioSource.clip = gameOverClip;
-                break;
-            case "Win Scene":
-                audioSource.loop = false;
-                audioSource.clip = winClip;
-                break;
-            case "Level 1":
-                audioSource.loop = true;
-                audioSource.clip = level1Clip;
-                break;
-            case "Level 2":
-                audioSource.loop = true;
-                audioSource.clip = level2Clip;
-                break;
-            case "Level 3":
-                audioSource.loop = true;
-                audioSource.clip = level3Clip;
-                break;
-            default:
-                audioSource.clip = level1Clip;
-                break;
+            audioSource.Stop();
+            switch (scene)
+            {
+                case "Start Menu":
+                    audioSource.loop = false;
+                    audioSource.clip = introClip;
+                    break;
+                case "Game Over":
+                    audioSource.loop = false;
+                    audioSource.clip = gameOverClip;
+                    break;
+                case "Win Scene":
+                    audioSource.loop = false;
+                    audioSource.clip = winClip;
+                    break;
+                case "Level 1":
+                    audioSource.loop = true;
+                    audioSource.clip = level1Clip;
+                    break;
+                case "Level 2":
+                    audioSource.loop = true;
+                    audioSource.clip = level2Clip;
+                    break;
+                case "Level 3":
+                    audioSource.loop = true;
+                    audioSource.clip = level3Clip;
+                    break;
+                default:
+                    audioSource.clip = level1Clip;
+                    break;
+            }
+            audioSource.Play();
         }
-        audioSource.Play();
-
     }
 }
