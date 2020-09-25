@@ -140,10 +140,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33fba45f4bd1973488c0c6a53294c6e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  play: 1
   introClip: {fileID: 8300000, guid: 403a4134580d6ff4e8c08199c5459f13, type: 3}
   gameOverClip: {fileID: 8300000, guid: 4c65820a8db789c468fd0f18e7d846fa, type: 3}
   winClip: {fileID: 8300000, guid: a1c5a93113c8f1540adab19349d2cfd9, type: 3}
   level1Clip: {fileID: 8300000, guid: 0b33dad5b42b3044ba9913367fad99a4, type: 3}
   level2Clip: {fileID: 8300000, guid: 5f538c101480c90469e0356d4cba97d5, type: 3}
   level3Clip: {fileID: 8300000, guid: eec3160edd0118648bbdf0f3d044720d, type: 3}
-  volume: 0.3
+  volume: 0.15

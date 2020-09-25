@@ -6,7 +6,7 @@ public class RocketPowerup : MonoBehaviour
 {
     [SerializeField] int rocketsToGive = 5;
     [SerializeField] AudioClip pickupSoundEffect;
-    [SerializeField] float pickupSEVol = 0.75f;
+    [SerializeField] [Range(0f, 1f)] float pickupSEVol = 0.75f;
 
     void OnTriggerEnter2D(Collider2D collider)
     {

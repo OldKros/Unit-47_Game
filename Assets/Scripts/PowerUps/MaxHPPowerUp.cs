@@ -6,7 +6,7 @@ public class MaxHPPowerUp : MonoBehaviour
 {
     [SerializeField] int amountToAdd = 100;
     [SerializeField] AudioClip pickupSoundEffect;
-    [SerializeField] float pickupSEVol = 0.75f;
+    [SerializeField] [Range(0f, 1f)] float pickupSEVol = 0.75f;
 
     void OnTriggerEnter2D(Collider2D collider)
     {

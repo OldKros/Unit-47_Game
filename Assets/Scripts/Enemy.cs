@@ -20,9 +20,9 @@ public class Enemy : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField] AudioClip laserSound;
-    [SerializeField] float laserSoundVol = 0.75f;
+    [SerializeField] [Range(0f, 1f)] float laserSoundVol = 0.75f;
     [SerializeField] AudioClip deathSound;
-    [SerializeField] float deathSoundVolume = 0.5f;
+    [SerializeField] [Range(0f, 1f)] float deathSoundVolume = 0.5f;
 
 
     // Start is called before the first frame update

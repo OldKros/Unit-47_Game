@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] GameObject deathVFX;
     [SerializeField] AudioClip deathSound;
-    [SerializeField] float deathSoundVol = 0.75f;
+    [SerializeField] [Range(0f, 1f)] float deathSoundVol = 0.75f;
     int damage;
 
     public void Hit()

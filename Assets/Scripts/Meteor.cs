@@ -62,7 +62,9 @@ public class Meteor : MonoBehaviour
         {
             // AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVolume);
             FindObjectOfType<GameState>().AddScore(scoreWorth);
-            gameObject.SetActive(false);
+            GameObject explosion = Instantiate(deathVFX, transform.position, Quaternion.identity);
+            Destroy(explosion, 1f);
+
             SpawnPowerUp();
             Destroy(gameObject);
         }
