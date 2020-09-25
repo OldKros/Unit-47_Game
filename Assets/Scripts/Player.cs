@@ -26,11 +26,24 @@ public class Player : MonoBehaviour
     [SerializeField] int laserDamage = 50;
     [SerializeField] float laserFireSpeed = 0.2f; // in seconds
 
+    [Header("Rocket")]
+    [SerializeField] GameObject rocketPrefab;
+    [SerializeField] int rocketCount = 5;
+    [SerializeField] float rocketSpeed = 15f;
+    [SerializeField] int rocketDamage = 150;
+
     [Header("Audio")]
     [SerializeField] AudioClip laserSound;
     [SerializeField] float laserSoundVol = 0.75f;
+    [SerializeField] AudioClip rocketSound;
+    [SerializeField] float rocketSoundVol = 0.75f;
     [SerializeField] AudioClip deathSound;
     [SerializeField] float deathSoundVol = 0.75f;
+
+    [SerializeField] AudioClip shieldsDownSound;
+    [SerializeField] float shieldsDownVol = 0.75f;
+    [SerializeField] AudioClip shieldsUpSound;
+    [SerializeField] float shieldsUpVol = 0.75f;
 
     Coroutine laserFiringCoroutine;
     float xMin, xMax, yMin, yMax;
@@ -50,7 +63,7 @@ public class Player : MonoBehaviour
     {
         Move();
         Fire();
-        ManageShield();
+
     }
 
     void SetUpSingleton()
@@ -68,6 +81,8 @@ public class Player : MonoBehaviour
 
     public int GetLivesLeft() { return lives; }
 
+    public int GetRocketCount() { return rocketCount; }
+
     public float GetShieldPercent() { return curShield / maxShield; }
 
     public float GetHealthPercent() { return curHP / maxHP; }
@@ -80,10 +95,9 @@ public class Player : MonoBehaviour
         curHP = maxHP;
     }
 
-    public void AddShield()
-    {
-        curShield = maxShield;
-    }
+    public void AddShield() { curShield = maxShield; }
+
+    public void AddRocket() { if (rocketCount <= 99) rocketCount++; }
 
     void Fire()
     {
@@ -95,15 +109,27 @@ public class Player : MonoBehaviour
         {
             StopCoroutine(laserFiringCoroutine);
         }
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            if (rocketCount == 0)
+                return;
+
+            GameObject rocket = Instantiate(rocketPrefab,
+                                            transform.position,
+                                            Quaternion.identity) as GameObject;
+            rocket.GetComponent<Rigidbody2D>().velocity = new Vector2(0, rocketSpeed);
+            rocket.GetComponent<Projectile>().SetDamage(rocketDamage);
+            AudioSource.PlayClipAtPoint(rocketSound, transform.position, rocketSoundVol);
+            rocketCount--;
+        }
     }
 
     IEnumerator FireLaser()
     {
         while (true)
         {
-            GameObject laser = Instantiate(laserPrefab,
-                                            transform.position,
-                                            Quaternion.identity) as GameObject;
+            GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity);
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, laserSpeed);
             laser.GetComponent<Projectile>().SetDamage(laserDamage);
             AudioSource.PlayClipAtPoint(laserSound, transform.position, laserSoundVol);
@@ -129,16 +155,18 @@ public class Player : MonoBehaviour
         transform.position = new Vector2(newXPos, newYPos);
     }
 
-    void ManageShield()
+    public void ActivateShield()
     {
-        if (curShield > 0)
-        {
-            shield.SetActive(true);
-        }
-        else
-        {
-            shield.SetActive(false);
-        }
+        AudioSource.PlayClipAtPoint(shieldsUpSound, transform.position, shieldsUpVol);
+        curShield = maxShield;
+        shield.SetActive(true);
+    }
+
+    void DeactivateShield()
+    {
+        AudioSource.PlayClipAtPoint(shieldsDownSound, transform.position, shieldsDownVol);
+        curShield = 0f;
+        shield.SetActive(false);
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -158,14 +186,18 @@ public class Player : MonoBehaviour
     {
         if (!invincible)
         {
-            if (curShield >= damage)
+            if (curShield >= (float)damage)
             {
                 curShield -= damage;
+                if (curShield <= 0f)
+                {
+                    damage -= (int)curShield;
+                    DeactivateShield();
+                    curHP -= damage;
+                }
             }
             else
             {
-                damage -= (int)curShield;
-                curShield = 0;
                 curHP -= damage;
             }
         }
@@ -181,14 +213,12 @@ public class Player : MonoBehaviour
             else
             {
                 AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVol);
-                FindObjectOfType<PlayerLives>().RemoveLife(lives);
+                FindObjectOfType<GUIPlayerLives>().RemoveLife(lives);
                 lives--;
                 StartCoroutine(BlinkAndRespawn());
             }
         }
     }
-
-
 
     IEnumerator BlinkAndRespawn()
     {

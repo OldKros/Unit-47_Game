@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerLives : MonoBehaviour
+public class GUIPlayerLives : MonoBehaviour
 {
-    [SerializeField] List<GameObject> lives;
+    [SerializeField] GameObject[] lives;
 
     // Start is called before the first frame update
     void Start()

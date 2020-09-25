@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealthBar : MonoBehaviour
+public class GUIPlayerHealthBar : MonoBehaviour
 {
     GameObject unit;
     Transform healthBar;

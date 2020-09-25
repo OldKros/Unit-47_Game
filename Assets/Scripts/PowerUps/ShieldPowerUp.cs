@@ -9,9 +9,8 @@ public class ShieldPowerUp : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        collider.GetComponent<Player>().AddShield();
-        AudioSource.PlayClipAtPoint(pickupSoundEffect, transform.position, pickupSEVol);
+        collider.GetComponent<Player>().ActivateShield();
         gameObject.SetActive(false);
-        // Destroy(gameObject);
+        Destroy(gameObject);
     }
 }

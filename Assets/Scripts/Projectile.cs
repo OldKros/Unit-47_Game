@@ -4,13 +4,31 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] int damage;
+    [SerializeField] GameObject deathVFX;
+    [SerializeField] AudioClip deathSound;
+    [SerializeField] float deathSoundVol = 0.75f;
+    int damage;
 
     public void Hit()
     {
-        Destroy(gameObject);
+        Die();
     }
 
     public void SetDamage(int damage) { this.damage = damage; }
     public int GetDamage() { return damage; }
+
+    void Die()
+    {
+        if (deathVFX)
+        {
+            GameObject explosion = Instantiate(deathVFX, transform.position, Quaternion.identity);
+            Destroy(explosion, 1f);
+        }
+        if (deathSound)
+        {
+            AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVol);
+        }
+
+        Destroy(gameObject);
+    }
 }

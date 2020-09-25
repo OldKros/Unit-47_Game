@@ -5,8 +5,8 @@ using UnityEngine;
 public class MeteorSpawner : MonoBehaviour
 {
     [Header("General")]
-    [SerializeField] List<GameObject> meteorPrefabs;
-    [SerializeField] List<GameObject> powerUpsToSpawn;
+    [SerializeField] GameObject[] meteorPrefabs;
+    [SerializeField] GameObject[] powerUpsToSpawn;
 
     [Header("Spawning")]
     [SerializeField] float leftPadding = 0.05f;
@@ -56,7 +56,7 @@ public class MeteorSpawner : MonoBehaviour
             // the distance along the y axis divided by the speed it travel the y axis
             float xVelocity = (spawnLoc.x - target.x) / ((spawnLoc.y - target.y) / yVelocity);
 
-            int meteorToSpawn = Random.Range(0, meteorPrefabs.Count - 1);
+            int meteorToSpawn = Random.Range(0, meteorPrefabs.Length - 1);
             var meteor = Instantiate(meteorPrefabs[meteorToSpawn],
                                     spawnLoc, Quaternion.identity) as GameObject;
             meteor.GetComponent<Rigidbody2D>().velocity = new Vector2(xVelocity, yVelocity);

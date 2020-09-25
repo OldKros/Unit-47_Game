@@ -26,8 +26,11 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = startWave; i < waveConfigs.Count; i++)
         {
-            // Debug.Log("Spawning " + waveConfigs[i]);
-            StartCoroutine(InitialWaveSpawning(waveConfigs[i]));
+            Debug.Log("Spawning wave: " + i);
+            if (waveConfigs[i].NeedAllDestroyed())
+                StartCoroutine(LoopWaveUntilDead(waveConfigs[i]));
+            else
+                StartCoroutine(LoopWave(waveConfigs[i]));
             yield return new WaitForSeconds(delayBetweenWaves);
         }
 
@@ -35,35 +38,12 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(CheckLevelProgress());
     }
 
-    IEnumerator InitialWaveSpawning(WaveConfiguration waveConfig)
+    IEnumerator LoopWave(WaveConfiguration waveConfig)
     {
-        // Debug.Log("Commencing Spawning");
         var enemyWave = new EnemyWave();
         enemyWaves.Add(enemyWave);
         yield return new WaitUntil(() => levelTimer >= waveConfig.GetInitialDelay());
-        for (int i = 0; i < waveConfig.GetAmountOfEnemies(); i++)
-        {
-            var enemy = Instantiate(
-                waveConfig.GetEnemyPrefab(),
-                waveConfig.GetPathWaypoints()[0].transform.position,
-                Quaternion.identity) as GameObject;
-
-            enemy.GetComponent<EnemyPathing>().SetWaveConfig(waveConfig);
-            enemyWave.AddEnemy(enemy);
-            yield return new WaitForSeconds(waveConfig.RandomSpawnTime());
-        }
-        enemyWave.finishedSpawning = true;
-        if (waveConfig.NeedAllDestroyed())
-            StartCoroutine(LoopWaveUntilDead(waveConfig, enemyWave));
-        else
-            StartCoroutine(LoopWave(waveConfig, enemyWave));
-    }
-
-    IEnumerator LoopWave(WaveConfiguration waveConfig, EnemyWave enemyWave)
-    {
         int loopCtr = waveConfig.GetLoopCount();
-        // wait until the wave has finished before looping
-        yield return new WaitUntil(() => enemyWave.IsWaveFinished());
 
         while (loopCtr > 0)
         {
@@ -78,33 +58,45 @@ public class EnemySpawner : MonoBehaviour
                 enemyWave.AddEnemy(enemy);
                 yield return new WaitForSeconds(waveConfig.RandomSpawnTime());
             }
-            // yield return StartCoroutine(RestartWave(waveConfig, enemyWave));
-            enemyWave.finishedSpawning = true;
+            enemyWave.allSpawned = true;
             yield return new WaitUntil(() => enemyWave.IsWaveFinished());
-            enemyWave.finishedSpawning = false;
+            enemyWave.allSpawned = false;
             enemyWave.DestroyAllEnemiesInWave();
             loopCtr--;
         }
+        enemyWave.waveComplete = true;
     }
 
-    IEnumerator LoopWaveUntilDead(WaveConfiguration waveConfig, EnemyWave enemyWave)
+    IEnumerator LoopWaveUntilDead(WaveConfiguration waveConfig)
     {
-        bool finished = false;
+        var enemyWave = new EnemyWave();
+        enemyWaves.Add(enemyWave);
+        yield return new WaitUntil(() => levelTimer >= waveConfig.GetInitialDelay());
+        for (int i = 0; i < waveConfig.GetAmountOfEnemies(); i++)
+        {
+            var enemy = Instantiate(
+                waveConfig.GetEnemyPrefab(),
+                waveConfig.GetPathWaypoints()[0].transform.position,
+                Quaternion.identity);
+            enemy.GetComponent<EnemyPathing>().SetWaveConfig(waveConfig);
+            enemyWave.AddEnemy(enemy);
+            yield return new WaitForSeconds(waveConfig.RandomSpawnTime());
+        }
+        enemyWave.allSpawned = true;
 
         while (!enemyWave.IsWaveDead())
         {
-            while (!finished)
-            {
-                finished = enemyWave.IsWaveFinished();
-                yield return new WaitForSeconds(0.5f);
-            }
+            yield return new WaitUntil(() => enemyWave.IsWaveFinished());
+            Debug.Log("Resetting LoopWaveUntilDead wave");
             yield return StartCoroutine(RestartWave(waveConfig, enemyWave));
             yield return new WaitForSeconds(waveConfig.GetLoopDelay());
         }
+        enemyWave.waveComplete = true;
     }
 
     IEnumerator RestartWave(WaveConfiguration waveConfig, EnemyWave enemyWave)
     {
+        enemyWave.allSpawned = false;
         int ctr = 0;
         foreach (var enemy in enemyWave.enemyList)
         {
@@ -114,41 +106,38 @@ public class EnemySpawner : MonoBehaviour
             ctr++;
             yield return new WaitForSeconds(waveConfig.RandomSpawnTime());
         }
+        enemyWave.allSpawned = true;
+    }
+
+    IEnumerator CheckLevelProgress()
+    {
+        yield return new WaitUntil(() => AreAllWavesFinishedOrDestroyed());
+        Debug.Log("Level Complete");
+        StartCoroutine(FindObjectOfType<GameState>().FinishLevel(levelTimer));
     }
 
     bool AreAllWavesFinishedOrDestroyed()
     {
         foreach (var enemyWave in enemyWaves)
         {
-            if (!enemyWave.IsWaveDead() || !enemyWave.IsWaveFinished())
+            if (!enemyWave.waveComplete)
                 return false;
         }
         return true;
-    }
-
-    IEnumerator CheckLevelProgress()
-    {
-        bool completed = false;
-        while (!completed)
-        {
-            completed = AreAllWavesFinishedOrDestroyed();
-            yield return new WaitForSeconds(0.5f);
-        }
-        Debug.Log("Level Complete");
-        StartCoroutine(FindObjectOfType<GameState>().FinishLevel(levelTimer));
     }
 
     [System.Serializable]
     public class EnemyWave
     {
         public List<GameObject> enemyList { get; private set; }
-
-        public bool finishedSpawning { get; set; }
+        public bool allSpawned { get; set; }
+        public bool waveComplete { get; set; }
 
         public EnemyWave()
         {
             enemyList = new List<GameObject>();
-            finishedSpawning = false;
+            allSpawned = false;
+            waveComplete = false;
         }
 
         public void AddEnemy(GameObject enemy)
@@ -167,7 +156,7 @@ public class EnemySpawner : MonoBehaviour
 
         public bool IsWaveDead()
         {
-            if (!finishedSpawning)
+            if (!allSpawned)
                 return false;
 
             foreach (var enemy in enemyList)
@@ -181,7 +170,7 @@ public class EnemySpawner : MonoBehaviour
 
         public bool IsWaveFinished()
         {
-            if (!finishedSpawning)
+            if (!allSpawned)
                 return false;
 
             foreach (var enemy in enemyList)
@@ -191,6 +180,7 @@ public class EnemySpawner : MonoBehaviour
                     return false;
                 }
             }
+            Debug.Log("All enemies finished");
             return true;
         }
     }

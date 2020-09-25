@@ -8,7 +8,7 @@ public class Meteor : MonoBehaviour
     [SerializeField] float maxHP = 300;
     [SerializeField] float curHP = 300;
     [SerializeField] int scoreWorth = 200;
-    [SerializeField] List<Sprite> crackSprites;
+    [SerializeField] Sprite[] crackSprites;
 
     [Header("Sound")]
     [SerializeField] AudioClip deathSound;
@@ -16,7 +16,7 @@ public class Meteor : MonoBehaviour
 
     [Header("Power Ups")]
     [SerializeField] [Range(0.0f, 1.0f)] float powerUpChance = 0.2f;
-    List<GameObject> powerUps;
+    GameObject[] powerUps;
     [SerializeField] float spinSpeed;
 
     // Start is called before the first frame update
@@ -32,7 +32,7 @@ public class Meteor : MonoBehaviour
         ChooseDamageSprite();
     }
 
-    public void SetPowerUps(List<GameObject> powerUps)
+    public void SetPowerUps(GameObject[] powerUps)
     {
         this.powerUps = powerUps;
     }
@@ -71,9 +71,9 @@ public class Meteor : MonoBehaviour
     {
         if (Random.Range(0f, 1f) <= powerUpChance)
         {
-            int powerUpToSpawn = Random.Range(0, powerUps.Count - 1);
+            int powerUpToSpawn = Random.Range(0, powerUps.Length - 1);
             var powerup = Instantiate(powerUps[powerUpToSpawn], transform.position, Quaternion.identity);
-            powerup.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, -0.2f);
+            powerup.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, -0.4f);
         }
     }
 
