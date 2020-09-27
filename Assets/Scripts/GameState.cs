@@ -6,16 +6,29 @@ public class GameState : MonoBehaviour
 {
     [SerializeField] int score = 0;
 
+    EnemySpawner enemySpawner;
+    BossController bossController;
+
+    public bool enemySpawnerFinished { get; set; }
+    public bool bossControllerFinished { get; set; }
+    float levelTimer;
+
     // Start is called before the first frame update
     void Awake()
     {
+        levelTimer = 0f;
+        enemySpawner = FindObjectOfType<EnemySpawner>();
+        bossController = FindObjectOfType<BossController>();
+        enemySpawnerFinished = false;
+        bossControllerFinished = false;
         SetUpSingleton();
+        StartCoroutine(WaitAndFinishLevel());
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        levelTimer += Time.deltaTime;
     }
 
     void SetUpSingleton()
@@ -34,10 +47,15 @@ public class GameState : MonoBehaviour
 
     public void AddScore(int score) { this.score += score; }
 
-    public IEnumerator FinishLevel(float levelTimer)
+    IEnumerator WaitAndFinishLevel()
     {
+        if (enemySpawner == null)
+            enemySpawnerFinished = true;
+        if (bossController == null)
+            bossControllerFinished = true;
+
+        yield return new WaitUntil(() => enemySpawnerFinished && bossControllerFinished);
         FindObjectOfType<GameUI>().SetLevelTimer(levelTimer);
-        // maybe show the score to the player
         score = 0;
         StopCoroutine(FindObjectOfType<MeteorSpawner>().spawnRoutine);
         yield return StartCoroutine(FindObjectOfType<GameUI>().FinishLevelAndCountdown(3));

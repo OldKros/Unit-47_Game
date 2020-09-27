@@ -20,10 +20,12 @@ public class Meteor : MonoBehaviour
     GameObject[] powerUps;
     [SerializeField] float spinSpeed;
 
+    GameState gameState;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        gameState = FindObjectOfType<GameState>();
     }
 
     // Update is called once per frame
@@ -61,7 +63,7 @@ public class Meteor : MonoBehaviour
         if (curHP <= 0)
         {
             // AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVolume);
-            FindObjectOfType<GameState>().AddScore(scoreWorth);
+            gameState.AddScore(scoreWorth);
             GameObject explosion = Instantiate(deathVFX, transform.position, Quaternion.identity);
             Destroy(explosion, 1f);
 

@@ -47,10 +47,14 @@ public class Player : MonoBehaviour
     float xMin, xMax, yMin, yMax;
     bool invincible = false;
     GameObject shield;
+    LevelController levelController;
+    GUIPlayerLives playerLivesGUI;
 
     // Start is called before the first frame update
     void Awake()
     {
+        levelController = FindObjectOfType<LevelController>();
+        playerLivesGUI = FindObjectOfType<GUIPlayerLives>();
         shield = transform.Find("Shield").gameObject;
         SetUpMoveBoundaries();
         SetUpSingleton();
@@ -206,14 +210,14 @@ public class Player : MonoBehaviour
         {
             if (lives <= 0)
             {
-                FindObjectOfType<LevelController>().LoadGameOver();
+                levelController.LoadGameOver();
                 Debug.Log("Dedded");
                 Destroy(gameObject);
             }
             else
             {
                 AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVol);
-                FindObjectOfType<GUIPlayerLives>().RemoveLife(lives);
+                playerLivesGUI.RemoveLife(lives);
                 lives--;
                 StartCoroutine(BlinkAndRespawn());
             }
@@ -224,6 +228,8 @@ public class Player : MonoBehaviour
     {
         invincible = true;
         curHP = maxHP;
+        curShield = maxShield;
+        shield.SetActive(true);
         transform.position = new Vector2(0, -6);
         for (int i = 0; i <= 3; i++)
         {

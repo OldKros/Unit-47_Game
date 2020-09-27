@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27feeb3faf8e99e4fa81e080b88025da, type: 3}
-  m_Name: Wave 4
+  m_Name: L2 Wave 2
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 2673443165505573293, guid: f92cbb8d733db364f9ac7912d1e818c0,
+  enemyPrefab: {fileID: 2160756371221777431, guid: e2afba13a6c324b40b46185878e61b6f,
     type: 3}
-  amountOfEnemies: 5
-  enemyMoveSpeed: 2
-  pathPrefab: {fileID: 625281092802360855, guid: 41f54bfc8ddb6b64bb457d286a156dae,
+  amountOfEnemies: 3
+  enemyMoveSpeed: 1.5
+  pathPrefab: {fileID: 5337547530830850041, guid: c2e7d71bbdd7b774d9757f371b1c26ce,
     type: 3}
-  timeBetweenSpawns: 0.5
-  spawnTimeRandomFactor: 0.3
+  timeBetweenSpawns: 3
+  spawnTimeRandomFactor: 1.5
   loopDelay: 2
-  loopAmount: 1
-  initialDelay: 25
+  loopAmount: 6
+  initialDelay: 0
   needAllDestroyed: 0

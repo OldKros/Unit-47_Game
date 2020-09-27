@@ -7,13 +7,14 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] List<WaveConfiguration> waveConfigs;
     [SerializeField] int startWave = 0;
     [SerializeField] float delayBetweenWaves = 2.0f;
-    [SerializeField] List<EnemyWave> enemyWaves;
+    List<EnemyWave> enemyWaves;
     float levelTimer = 0.0f;
-
+    GameState gameState;
 
     // Start is called before the first frame update
     void Start()
     {
+        gameState = FindObjectOfType<GameState>();
         StartCoroutine(SpawnAllWaves());
     }
 
@@ -113,7 +114,7 @@ public class EnemySpawner : MonoBehaviour
     {
         yield return new WaitUntil(() => AreAllWavesFinishedOrDestroyed());
         Debug.Log("Level Complete");
-        StartCoroutine(FindObjectOfType<GameState>().FinishLevel(levelTimer));
+        gameState.enemySpawnerFinished = true; ;
     }
 
     bool AreAllWavesFinishedOrDestroyed()

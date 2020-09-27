@@ -9,12 +9,13 @@ public class GameUI : MonoBehaviour
     GameObject countdownSprite;
     GameObject levelComplete;
     GameObject scoreText;
-
+    GameState gameState;
     float levelTimer;
 
 
     void Start()
     {
+        gameState = FindObjectOfType<GameState>();
         countdownSprite = transform.Find("Countdown Sprite").gameObject;
         levelComplete = transform.Find("Level Complete").gameObject;
         scoreText = transform.Find("Score").gameObject;
@@ -30,7 +31,7 @@ public class GameUI : MonoBehaviour
         try
         {
             scoreText.GetComponent<TMPro.TextMeshProUGUI>().text =
-                FindObjectOfType<GameState>().GetScore().ToString();
+                gameState.GetScore().ToString();
         }
         catch (System.NullReferenceException)
         {

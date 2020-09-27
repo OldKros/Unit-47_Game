@@ -481,7 +481,7 @@ PrefabInstance:
     - target: {fileID: 520556936898562743, guid: 19c021bd878abd3419c241a7c35598d9,
         type: 3}
       propertyPath: rocketCount
-      value: 69
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 520556936898562743, guid: 19c021bd878abd3419c241a7c35598d9,
         type: 3}
@@ -641,23 +641,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 694752914111750929, guid: 39d63ddde63291846b364b20a4c233f7,
-        type: 3}
-      propertyPath: powerUpsToSpawn.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 694752914111750929, guid: 39d63ddde63291846b364b20a4c233f7,
-        type: 3}
-      propertyPath: powerUpsToSpawn.Array.data[2]
-      value: 
-      objectReference: {fileID: 4742736502277667617, guid: dbf2da4d3ddbfa44dacb07f73c9c0386,
-        type: 3}
-    - target: {fileID: 694752914111750929, guid: 39d63ddde63291846b364b20a4c233f7,
-        type: 3}
-      propertyPath: powerUpsToSpawn.Array.data[3]
-      value: 
-      objectReference: {fileID: 4742736502277667617, guid: dc3b19df3e3cc234bb2b1a2d0a663a61,
-        type: 3}
     - target: {fileID: 694752914111750934, guid: 39d63ddde63291846b364b20a4c233f7,
         type: 3}
       propertyPath: m_Name

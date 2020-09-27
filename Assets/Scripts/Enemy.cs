@@ -24,10 +24,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] AudioClip deathSound;
     [SerializeField] [Range(0f, 1f)] float deathSoundVolume = 0.5f;
 
-
+    GameState gameState;
     // Start is called before the first frame update
     void Start()
     {
+        gameState = FindObjectOfType<GameState>();
         shotTimer = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
         int i = Random.Range(0, sprites.Count);
         gameObject.GetComponent<SpriteRenderer>().sprite = sprites[i];
@@ -83,7 +84,7 @@ public class Enemy : MonoBehaviour
         if (curHP <= 0.0f)
         {
             AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVolume);
-            FindObjectOfType<GameState>().AddScore(scoreWorth);
+            gameState.AddScore(scoreWorth);
             Destroy(gameObject);
         }
     }

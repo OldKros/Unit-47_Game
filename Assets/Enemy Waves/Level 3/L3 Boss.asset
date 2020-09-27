@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27feeb3faf8e99e4fa81e080b88025da, type: 3}
-  m_Name: Wave 3
+  m_Name: L3 Boss
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 2673443165505573293, guid: f92cbb8d733db364f9ac7912d1e818c0,
+  enemyPrefab: {fileID: 2717041582724035465, guid: 9577851e53e5651488aacfb7a2f6c026,
     type: 3}
-  amountOfEnemies: 5
-  enemyMoveSpeed: 3
-  pathPrefab: {fileID: 625281092802360855, guid: f2544039c20517846a8b2df9103b2a7b,
+  amountOfEnemies: 1
+  enemyMoveSpeed: 2
+  pathPrefab: {fileID: 625281092802360855, guid: e2c51f9e5428c35488a6e595d0c5b61e,
     type: 3}
-  timeBetweenSpawns: 0.5
-  spawnTimeRandomFactor: 0.3
-  loopDelay: 2
-  loopAmount: 1
-  initialDelay: 15
-  needAllDestroyed: 0
+  timeBetweenSpawns: 0
+  spawnTimeRandomFactor: 0
+  loopDelay: 0
+  loopAmount: 0
+  initialDelay: 0
+  needAllDestroyed: 1

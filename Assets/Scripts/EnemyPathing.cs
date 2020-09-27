@@ -8,6 +8,7 @@ public class EnemyPathing : MonoBehaviour
     List<Transform> waypoints;
     int waypointIndex = 0;
     bool finishedRoute = false;
+    bool alwaysLoop = false;
 
 
     // Start is called before the first frame update
@@ -23,6 +24,9 @@ public class EnemyPathing : MonoBehaviour
         FollowPath();
     }
     public bool FinishedRoute() { return finishedRoute; }
+
+    public void SetAlwaysLoop(bool alwaysLoop) { this.alwaysLoop = alwaysLoop; }
+
     public void SetWaveConfig(WaveConfiguration waveConfig)
     {
         this.waveConfig = waveConfig;
@@ -42,8 +46,15 @@ public class EnemyPathing : MonoBehaviour
         }
         else
         {
-            gameObject.SetActive(false);
-            finishedRoute = true;
+            if (!alwaysLoop)
+            {
+                gameObject.SetActive(false);
+                finishedRoute = true;
+            }
+            else
+            {
+                waypointIndex = 0;
+            }
         }
     }
 
