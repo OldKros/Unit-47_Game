@@ -147,7 +147,7 @@ MonoBehaviour:
     type: 3}
   deathSound: {fileID: 0}
   deathSoundVol: 0.5
-  powerUpChance: 0.5
+  powerUpChance: 0.6
   spinSpeed: 0
 --- !u!114 &1540272074893158806
 MonoBehaviour:

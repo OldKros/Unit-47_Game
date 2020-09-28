@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        enemyWaves = new List<EnemyWave>();
         gameState = FindObjectOfType<GameState>();
         StartCoroutine(SpawnAllWaves());
     }
@@ -46,7 +47,7 @@ public class EnemySpawner : MonoBehaviour
         yield return new WaitUntil(() => levelTimer >= waveConfig.GetInitialDelay());
         int loopCtr = waveConfig.GetLoopCount();
 
-        while (loopCtr > 0)
+        while (loopCtr >= 0)
         {
             yield return new WaitForSeconds(waveConfig.GetLoopDelay());
             for (int i = 0; i < waveConfig.GetAmountOfEnemies(); i++)

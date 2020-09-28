@@ -10,13 +10,16 @@ public class Enemy : MonoBehaviour
     [SerializeField] int scoreWorth = 10;
     [SerializeField] List<Sprite> sprites;
 
+    [SerializeField] GameObject powerUpToDrop;
+    [SerializeField] [Range(0f, 1f)] float powerUpChance = 0.25f;
+
     [Header("Laser")]
     [SerializeField] GameObject laserPrefab;
     [SerializeField] float laserSpeed = 10.0f;
     [SerializeField] int laserDamage = 50;
     float shotTimer;
-    [SerializeField] float minTimeBetweenShots = 0.2f;
-    [SerializeField] float maxTimeBetweenShots = 3.0f;
+    float minTimeBetweenShots = 0.2f;
+    float maxTimeBetweenShots = 0.5f;
 
     [Header("Audio")]
     [SerializeField] AudioClip laserSound;
@@ -28,6 +31,8 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        minTimeBetweenShots = GetComponent<EnemyPathing>().GetWaveConfig().GetMinShootTimer();
+        maxTimeBetweenShots = GetComponent<EnemyPathing>().GetWaveConfig().GetMaxShootTimer();
         gameState = FindObjectOfType<GameState>();
         shotTimer = Random.Range(minTimeBetweenShots, maxTimeBetweenShots);
         int i = Random.Range(0, sprites.Count);
@@ -84,6 +89,11 @@ public class Enemy : MonoBehaviour
         if (curHP <= 0.0f)
         {
             AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVolume);
+            if (powerUpToDrop && Random.Range(0f, 1f) < powerUpChance)
+            {
+                var powerup = Instantiate(powerUpToDrop, transform.position, Quaternion.identity);
+                powerup.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, -1.0f);
+            }
             gameState.AddScore(scoreWorth);
             Destroy(gameObject);
         }

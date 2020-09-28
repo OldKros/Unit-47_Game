@@ -51,6 +51,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -62,6 +64,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -146,19 +149,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00954207ab249fc45ad149a4b806ac66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 200
-  curHP: 200
+  maxHP: 150
+  curHP: 150
   scoreWorth: 50
   sprites:
   - {fileID: 21300000, guid: c11794bcf9c72134f9c68cdee2ee87a9, type: 3}
   - {fileID: 21300000, guid: 2ba2072427dbfaa4cb0f66df5751ea1b, type: 3}
   - {fileID: 21300000, guid: b2901473cf5269c44bbf5c58ad51a570, type: 3}
   - {fileID: 21300000, guid: 5f60b640c47b64c4aad2bb02633f4b8d, type: 3}
+  powerUpToDrop: {fileID: 0}
   laserPrefab: {fileID: 8682811161780489944, guid: 249fb817290554a4da3ec69203c360bb,
     type: 3}
   laserSpeed: 10
-  minTimeBetweenShots: 0.5
-  maxTimeBetweenShots: 2
+  laserDamage: 50
   laserSound: {fileID: 8300000, guid: 093e7ad29fa09714c904e193c625beb2, type: 3}
   laserSoundVol: 0.75
   deathSound: {fileID: 8300000, guid: 5a09d248530989c499712fa6f1031507, type: 3}
@@ -183,6 +186,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2673443165505573299}
     m_Modifications:
+    - target: {fileID: 6921182350936394402, guid: 7b5c350fc34cfb84ead9dede05884083,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6921182350995187198, guid: 7b5c350fc34cfb84ead9dede05884083,
         type: 3}
       propertyPath: m_Name
@@ -249,11 +257,6 @@ PrefabInstance:
       value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6921182352424105543, guid: 7b5c350fc34cfb84ead9dede05884083,
-        type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 6921182350936394402, guid: 7b5c350fc34cfb84ead9dede05884083,
         type: 3}
       propertyPath: m_Layer
       value: 11

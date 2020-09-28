@@ -16,11 +16,13 @@ MonoBehaviour:
     type: 3}
   amountOfEnemies: 3
   enemyMoveSpeed: 1.5
+  minShootTimer: 2.5
+  maxShootTimer: 3.5
   pathPrefab: {fileID: 5337547530830850041, guid: c2e7d71bbdd7b774d9757f371b1c26ce,
     type: 3}
   timeBetweenSpawns: 3
   spawnTimeRandomFactor: 1.5
   loopDelay: 2
-  loopAmount: 6
-  initialDelay: 0
+  loopAmount: 3
+  initialDelay: 20
   needAllDestroyed: 0

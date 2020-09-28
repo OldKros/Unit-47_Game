@@ -31,6 +31,7 @@ public class EnemyPathing : MonoBehaviour
     {
         this.waveConfig = waveConfig;
     }
+    public WaveConfiguration GetWaveConfig() { return waveConfig; }
 
     private void FollowPath()
     {

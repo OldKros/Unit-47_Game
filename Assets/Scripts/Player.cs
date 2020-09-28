@@ -53,8 +53,6 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        levelController = FindObjectOfType<LevelController>();
-        playerLivesGUI = FindObjectOfType<GUIPlayerLives>();
         shield = transform.Find("Shield").gameObject;
         SetUpMoveBoundaries();
         SetUpSingleton();
@@ -99,7 +97,14 @@ public class Player : MonoBehaviour
         if (rocketCount >= 99) rocketCount = 99;
     }
 
-    public void AddLife() { if (lives < 3) lives++; }
+    public void AddLife()
+    {
+        if (lives < 3)
+        {
+            lives++;
+            FindObjectOfType<GUIPlayerLives>().AddLife(lives);
+        }
+    }
 
     void Fire()
     {
@@ -142,10 +147,10 @@ public class Player : MonoBehaviour
     void SetUpMoveBoundaries()
     {
         Camera gameCamera = Camera.main;
-        xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + leftPadding;
-        xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - rightPadding;
-        yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + bottomPadding;
-        yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - topPadding;
+        xMin = -4f + leftPadding;
+        xMax = 4f - rightPadding;
+        yMin = -7f + bottomPadding;
+        yMax = 7f - topPadding;
     }
 
     void Move()
@@ -210,14 +215,14 @@ public class Player : MonoBehaviour
         {
             if (lives <= 0)
             {
-                levelController.LoadGameOver();
+                FindObjectOfType<LevelController>().LoadGameOver();
                 Debug.Log("Dedded");
                 Destroy(gameObject);
             }
             else
             {
                 AudioSource.PlayClipAtPoint(deathSound, transform.position, deathSoundVol);
-                playerLivesGUI.RemoveLife(lives);
+                FindObjectOfType<GUIPlayerLives>().RemoveLife(lives);
                 lives--;
                 StartCoroutine(BlinkAndRespawn());
             }
@@ -230,7 +235,7 @@ public class Player : MonoBehaviour
         curHP = maxHP;
         curShield = maxShield;
         shield.SetActive(true);
-        transform.position = new Vector2(0, -6);
+        // transform.position = new Vector2(0, -6);
         for (int i = 0; i <= 3; i++)
         {
             GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 0);

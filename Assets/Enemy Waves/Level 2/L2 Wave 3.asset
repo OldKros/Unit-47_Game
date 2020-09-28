@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 2673443165505573293, guid: f92cbb8d733db364f9ac7912d1e818c0,
     type: 3}
-  amountOfEnemies: 14
-  enemyMoveSpeed: 4.2
-  pathPrefab: {fileID: 625281092802360855, guid: 2f98aa4b71e4c0a418b1eb40ce874c87,
+  amountOfEnemies: 7
+  enemyMoveSpeed: 3
+  minShootTimer: 0.3
+  maxShootTimer: 1
+  pathPrefab: {fileID: 625281092802360855, guid: 41f54bfc8ddb6b64bb457d286a156dae,
     type: 3}
-  timeBetweenSpawns: 1.2
-  spawnTimeRandomFactor: 0.5
-  loopDelay: 5
+  timeBetweenSpawns: 1
+  spawnTimeRandomFactor: 0.6
+  loopDelay: 2
   loopAmount: 2
-  initialDelay: 20
+  initialDelay: 40
   needAllDestroyed: 0

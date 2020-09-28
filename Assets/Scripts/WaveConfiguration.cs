@@ -9,6 +9,8 @@ public class WaveConfiguration : ScriptableObject
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] int amountOfEnemies = 5;
     [SerializeField] float enemyMoveSpeed = 2.0f;
+    [SerializeField] float minShootTimer = 0.3f;
+    [SerializeField] float maxShootTimer = 1f;
 
     [Header("Path")]
     [SerializeField] GameObject pathPrefab;
@@ -24,6 +26,9 @@ public class WaveConfiguration : ScriptableObject
     public float GetEnemyMoveSpeed() { return enemyMoveSpeed; }
 
     public int GetAmountOfEnemies() { return amountOfEnemies; }
+
+    public float GetMinShootTimer() { return minShootTimer; }
+    public float GetMaxShootTimer() { return maxShootTimer; }
 
     public List<Transform> GetPathWaypoints()
     {

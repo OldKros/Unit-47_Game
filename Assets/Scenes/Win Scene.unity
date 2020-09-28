@@ -43,7 +43,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 11
+  serializedVersion: 12
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -94,10 +94,12 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
-    m_ShowResolutionOverlay: 1
     m_ExportTrainingData: 0
+    m_TrainingDataDestination: TrainingData
+    m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_LightingSettings: {fileID: 4890085278179872738, guid: c2f649724fdc0aa469294f8ca9fec8c0,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -117,6 +119,8 @@ NavMeshSettings:
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
+    maxJobWorkers: 0
+    preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
@@ -147,7 +151,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 630271218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_HorizontalAxis: Horizontal
@@ -166,7 +170,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 630271218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_FirstSelected: {fileID: 0}
@@ -193,11 +197,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 796277416002043731, guid: 096a4070f5a21d442a7d89dfab0e901a,
-        type: 3}
-      propertyPath: m_Name
-      value: GameState
-      objectReference: {fileID: 0}
     - target: {fileID: 796277416002043730, guid: 096a4070f5a21d442a7d89dfab0e901a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -252,6 +251,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 796277416002043731, guid: 096a4070f5a21d442a7d89dfab0e901a,
+        type: 3}
+      propertyPath: m_Name
+      value: GameState
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 096a4070f5a21d442a7d89dfab0e901a, type: 3}
@@ -331,11 +335,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7766208634402689696, guid: 61243ba6334c502409cba0013a8742d3,
-        type: 3}
-      propertyPath: m_Name
-      value: Main Camera
-      objectReference: {fileID: 0}
     - target: {fileID: 7766208634402689628, guid: 61243ba6334c502409cba0013a8742d3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -391,6 +390,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7766208634402689696, guid: 61243ba6334c502409cba0013a8742d3,
+        type: 3}
+      propertyPath: m_Name
+      value: Main Camera
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61243ba6334c502409cba0013a8742d3, type: 3}
 --- !u!1001 &1920709872
@@ -400,11 +404,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7720580923130075913, guid: 9435cfbf2983b9b438de6d12c5931686,
-        type: 3}
-      propertyPath: m_Name
-      value: MusicPlayer
-      objectReference: {fileID: 0}
     - target: {fileID: 4689569821461629083, guid: 9435cfbf2983b9b438de6d12c5931686,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -460,6 +459,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7720580923130075913, guid: 9435cfbf2983b9b438de6d12c5931686,
+        type: 3}
+      propertyPath: m_Name
+      value: MusicPlayer
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9435cfbf2983b9b438de6d12c5931686, type: 3}
 --- !u!1001 &6200209144807208507
@@ -469,11 +473,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6200209142813795330, guid: 4997c07bfc336e34a845a667371310e9,
-        type: 3}
-      propertyPath: m_Name
-      value: LevelController
-      objectReference: {fileID: 0}
     - target: {fileID: 6200209142813795328, guid: 4997c07bfc336e34a845a667371310e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -529,6 +528,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6200209142813795330, guid: 4997c07bfc336e34a845a667371310e9,
+        type: 3}
+      propertyPath: m_Name
+      value: LevelController
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4997c07bfc336e34a845a667371310e9, type: 3}
 --- !u!114 &6200209144807208508 stripped
@@ -550,11 +554,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5610078266167228319, guid: 23178523948e26b4f8518f36e8acc297,
-        type: 3}
-      propertyPath: m_Name
-      value: Win Canvas
-      objectReference: {fileID: 0}
     - target: {fileID: 5610078266167228315, guid: 23178523948e26b4f8518f36e8acc297,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -659,6 +658,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5610078266167228319, guid: 23178523948e26b4f8518f36e8acc297,
+        type: 3}
+      propertyPath: m_Name
+      value: Win Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 7703464393096927184, guid: 23178523948e26b4f8518f36e8acc297,
         type: 3}

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4742736502277667645}
   - component: {fileID: 4742736502277667644}
   - component: {fileID: 4742736502277667647}
+  - component: {fileID: 3212453037999267912}
   m_Layer: 13
   m_Name: Life PowerUp
   m_TagString: Untagged
@@ -144,3 +145,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 719f77a7e1badb34c8fb91166177a2bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stopPoint: -6
+--- !u!114 &3212453037999267912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4742736502277667617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8295e12cea73ed448b484b2dd61d3be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupSoundEffect: {fileID: 8300000, guid: 36e8d2a0c3a57e04a874cdb36e8cb76f, type: 3}
+  pickupSEVol: 0.75

@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27feeb3faf8e99e4fa81e080b88025da, type: 3}
   m_Name: L1 Wave 3
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 2673443165505573293, guid: f92cbb8d733db364f9ac7912d1e818c0,
+  enemyPrefab: {fileID: 5819831104723503099, guid: 61368303ad97dd245a2540bda4a92b64,
     type: 3}
-  amountOfEnemies: 5
-  enemyMoveSpeed: 3
+  amountOfEnemies: 8
+  enemyMoveSpeed: 2.8
+  minShootTimer: 1.1
+  maxShootTimer: 1.5
   pathPrefab: {fileID: 625281092802360855, guid: f2544039c20517846a8b2df9103b2a7b,
     type: 3}
   timeBetweenSpawns: 0.5
   spawnTimeRandomFactor: 0.3
   loopDelay: 2
-  loopAmount: 1
-  initialDelay: 15
+  loopAmount: 3
+  initialDelay: 50
   needAllDestroyed: 0

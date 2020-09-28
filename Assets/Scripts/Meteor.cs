@@ -76,7 +76,7 @@ public class Meteor : MonoBehaviour
     {
         if (Random.Range(0f, 1f) <= powerUpChance)
         {
-            int powerUpToSpawn = Random.Range(0, powerUps.Length - 1);
+            int powerUpToSpawn = Random.Range(0, powerUps.Length);
             var powerup = Instantiate(powerUps[powerUpToSpawn], transform.position, Quaternion.identity);
             powerup.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, -1.0f);
         }

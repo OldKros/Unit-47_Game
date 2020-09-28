@@ -38,9 +38,8 @@ public class MeteorSpawner : MonoBehaviour
 
     void SetSpawnBoundaries()
     {
-        Camera gameCamera = Camera.main;
-        xMin = gameCamera.ViewportToWorldPoint(new Vector3(0f, 0f, 0f)).x + leftPadding;
-        xMax = gameCamera.ViewportToWorldPoint(new Vector3(1f, 0f, 0f)).x - rightPadding;
+        xMin = -4f + leftPadding;
+        xMax = 4f - rightPadding;
     }
 
     IEnumerator SpawnMeteors()

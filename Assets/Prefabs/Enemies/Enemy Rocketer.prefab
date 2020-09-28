@@ -51,6 +51,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -62,6 +64,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -146,21 +149,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00954207ab249fc45ad149a4b806ac66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 100
-  curHP: 100
-  scoreWorth: 50
+  maxHP: 200
+  curHP: 200
+  scoreWorth: 100
   sprites:
   - {fileID: 21300000, guid: c8e9775de0ac2f445b844b6874c8c45f, type: 3}
   - {fileID: 21300000, guid: dbb9e44662076d44395ff90fc37fb7ae, type: 3}
   - {fileID: 21300000, guid: 5dfd7a0dbb00e3f4f94a28363b4f3845, type: 3}
   - {fileID: 21300000, guid: 7a3bd166811b9004d94b81bdda6a6e20, type: 3}
+  powerUpToDrop: {fileID: 4742736502277667617, guid: dbf2da4d3ddbfa44dacb07f73c9c0386,
+    type: 3}
+  powerUpChance: 0.25
   laserPrefab: {fileID: 8682811161780489944, guid: 5a01579c42696784fb9c8e44859bd8ff,
     type: 3}
-  laserSpeed: 10
+  laserSpeed: 6
   laserDamage: 150
-  minTimeBetweenShots: 0.2
-  maxTimeBetweenShots: 3
-  laserSound: {fileID: 8300000, guid: 093e7ad29fa09714c904e193c625beb2, type: 3}
+  laserSound: {fileID: 8300000, guid: a738189c57b45b745915173f9f508c93, type: 3}
   laserSoundVol: 0.75
   deathSound: {fileID: 8300000, guid: 5a09d248530989c499712fa6f1031507, type: 3}
   deathSoundVolume: 0.75

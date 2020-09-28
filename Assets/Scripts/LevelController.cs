@@ -17,6 +17,7 @@ public class LevelController : MonoBehaviour
 
     public void LoadStartMenu()
     {
+        FindObjectOfType<GameState>().ResetScore();
         SceneManager.LoadScene(startMenu);
     }
 

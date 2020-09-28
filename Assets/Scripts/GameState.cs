@@ -44,6 +44,7 @@ public class GameState : MonoBehaviour
     }
 
     public int GetScore() { return score; }
+    public void ResetScore() { score = 0; }
 
     public void AddScore(int score) { this.score += score; }
 
@@ -56,7 +57,6 @@ public class GameState : MonoBehaviour
 
         yield return new WaitUntil(() => enemySpawnerFinished && bossControllerFinished);
         FindObjectOfType<GameUI>().SetLevelTimer(levelTimer);
-        score = 0;
         StopCoroutine(FindObjectOfType<MeteorSpawner>().spawnRoutine);
         yield return StartCoroutine(FindObjectOfType<GameUI>().FinishLevelAndCountdown(3));
         FindObjectOfType<LevelController>().LoadNextScene();
