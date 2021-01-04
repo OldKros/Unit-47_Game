@@ -1,6 +1,6 @@
 # Unit-47_Game
 
-Clone repo, add project via Unity Hub,
+## Requirements to build
 
 Unity version 20202.1.6f1
 
