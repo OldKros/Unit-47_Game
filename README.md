@@ -1,4 +1,4 @@
-# Unit-47_Game
+# Unity Project for Unit-47 Games Development
 
 ## Requirements to build
 
